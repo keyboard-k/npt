@@ -1,0 +1,20 @@
+
+MAG
+
+_objects table
+	
+	object_id
+	object_type
+	object_parent
+	object_subject
+	object_content
+	object_time
+	object_ip
+	object_bio
+
+_objects_type
+	
+	type_id
+	type_order
+	type_alias
+	type_name
