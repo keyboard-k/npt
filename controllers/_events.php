@@ -92,12 +92,12 @@ class __events extends xmd implements i_events
 		
 		$v = $this->__(array('f', 'p' => 0));
 		
-		if (!$event_type = $core->cache_load('events_type'))
+		if (!$event_type = $core->cache->load('events_type'))
 		{
 			$sql = 'SELECT type_id, type_alias
 				FROM _events_type
 				ORDER BY type_order';
-			$event_type = $core->cache_store('events_type', _rowset($sql, 'type_alias', 'type_id'));
+			$event_type = $core->cache->store('events_type', _rowset($sql, 'type_alias', 'type_id'));
 		}
 		
 		if ($v['f'] && !isset($event_type[$v['f']]))
@@ -300,12 +300,12 @@ class __events extends xmd implements i_events
 		if (!$is_future)
 		{
 			// Star for favourites
-			if (!$star_type = $core->cache_load('star_type'))
+			if (!$star_type = $core->cache->load('star_type'))
 			{
 				$sql = 'SELECT type_id, type_name
 					FROM _events_star_type
 					ORDER BY type_order';
-				$types = $core->cache_store('star_type', _rowset($sql, 'type_id', 'type_name'));
+				$types = $core->cache->store('star_type', _rowset($sql, 'type_id', 'type_name'));
 			}
 			
 			$i = 0;
@@ -560,7 +560,7 @@ class __events extends xmd implements i_events
 		{
 			$sql = 'UPDATE _events SET attend_option = ?
 				WHERE attend_id = ?';
-			_sql(sql_filter($sql, $v['option'], $attend_id));
+			sql_query(sql_filter($sql, $v['option'], $attend_id));
 		}
 		else
 		{

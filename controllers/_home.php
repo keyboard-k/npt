@@ -316,7 +316,7 @@ class __home extends xmd implements i_home
 		
 		$sql = 'UPDATE _bio_friends SET friend_pending = ?
 			WHERE friend_id = ?';
-		_sql(sql_filter($sql, 0, $friend['friend_id']));
+		sql_query(sql_filter($sql, 0, $friend['friend_id']));
 		
 		// TODO: Email notification about new friend.
 		
@@ -358,7 +358,7 @@ class __home extends xmd implements i_home
 		
 		$sql = 'DELETE FROM _bio_friends
 			WHERE friend_id = ?';
-		_sql(sql_filter($sql, $friend['friend_id']));
+		sql_query(sql_filter($sql, $friend['friend_id']));
 		
 		return;
 	}

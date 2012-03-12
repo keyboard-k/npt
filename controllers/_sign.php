@@ -105,7 +105,7 @@ class __sign extends xmd implements i_sign
 				
 				$sql = 'UPDATE _bio SET bio_recovery = bio_recovery + 1
 					WHERE bio_id = ?';
-				_sql(sql_filter($sql, $recovery->bio_id));
+				sql_query(sql_filter($sql, $recovery->bio_id));
 			}
 			
 			$this->_stop('RECOVERY_LEGEND');
@@ -131,7 +131,7 @@ class __sign extends xmd implements i_sign
 				{
 					$sql = 'UPDATE _bio SET bio_fails = 0
 						WHERE bio_id = ?';
-					_sql(sql_filter($sql, $_bio->bio_id));
+					sql_query(sql_filter($sql, $_bio->bio_id));
 				}
 				
 				$bio->session_create($_bio->bio_id);
@@ -147,7 +147,7 @@ class __sign extends xmd implements i_sign
 			
 			$sql = 'UPDATE _bio SET bio_fails = bio_fails + 1
 				WHERE bio_id = ?';
-			_sql(sql_filter($sql, $_bio->bio_id));
+			sql_query(sql_filter($sql, $_bio->bio_id));
 			
 			sleep(5);
 			$this->warning->set('login_fail');
@@ -292,7 +292,7 @@ class __sign extends xmd implements i_sign
 		
 		$sql = 'UPDATE _bio SET bio_active = 1
 			WHERE bio_id = ?';
-		_sql(sql_filter($sql, $rainbow->rainbow_uid));
+		sql_query(sql_filter($sql, $rainbow->rainbow_uid));
 		
 		_rainbow_remove($rainbow->rainbow_code);
 		

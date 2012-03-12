@@ -283,13 +283,13 @@ abstract class project
 	{
 		global $bio, $core;
 		
-		if (!$announce = $core->cache_load('announce'))
+		if (!$announce = $core->cache->load('announce'))
 		{
 			$sql = 'SELECT *
 				FROM _announce a, _announce_block b
 				WHERE a.announce_block = b.block_id
 				ORDER BY a.announce_order';
-			$announce = $core->cache_store(sql_rowset($sql));
+			$announce = $core->cache->store(sql_rowset($sql));
 		}
 		
 		$i = 0;

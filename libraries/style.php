@@ -144,8 +144,7 @@ class style
 		$this->cache_search = array('.', '\\', '/', '_tpl');
 		$this->cache_replace = w('_ . . .php');
 		
-		if (!$core->cache_check())
-		{
+		if (!$core->cache->allowed()) {
 			$this->use_cache = false;
 		}
 		

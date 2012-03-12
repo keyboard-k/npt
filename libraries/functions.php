@@ -1326,12 +1326,12 @@ function _countries($s = false)
 {
 	global $core;
 	
-	if (!$countries = $core->cache_load('countries'))
+	if (!$countries = $core->cache->load('countries'))
 	{
 		$sql = 'SELECT *
 			FROM _countries
 			ORDER BY country_id';
-		$countries = $core->cache_store(_rowset($sql, 'country_id'));
+		$countries = $core->cache->store(_rowset($sql, 'country_id'));
 	}
 	
 	if ($s !== false && isset($countries[$s]))
@@ -1887,7 +1887,7 @@ function _layout($template, $page_title = false, $v_custom = false)
 		'PAGE_TITLE' => $page_title,
 		'G_ANALYTICS' => $core->v('google_analytics'),
 		'S_REDIRECT' => $bio->v('session_page'),
-		'F_SQL' => _sql_queries()
+		'F_SQL' => sql_queries()
 	);
 	if ($v_custom !== false)
 	{

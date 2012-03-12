@@ -218,13 +218,13 @@ class bio {
 		$sql = 'DELETE FROM _sessions
 			WHERE session_id = ?
 				AND session_bio_id = ?';
-		_sql(sql_filter($sql, $this->session, $this->base['bio_id']));
+		sql_query(sql_filter($sql, $this->session, $this->base['bio_id']));
 		
 		if ($this->base['bio_id'] != 1) {
 			$sql = 'UPDATE _bio
 				SET bio_lastvisit = ?
 				WHERE bio_id = ?';
-			_sql(sql_filter($sql, $this->base['session_time'], $this->base['bio_id']));
+			sql_query(sql_filter($sql, $this->base['session_time'], $this->base['bio_id']));
 			
 			$this->base = $this->select(1);
 		}
@@ -318,7 +318,7 @@ class bio {
 			WGERE a.auth_bio = ?
 				AND a.auth_field = f.field_id
 			ORDER BY f.field_name';
-		$this->auth[$bio] = _rowset(sql_filter($sql, $bio_id), 'field_alias', 'auth_value');
+		$this->auth[$bio] = sql_rowset(sql_filter($sql, $bio_id), 'field_alias', 'auth_value');
 	}
 	
 	public function auth_verify($key = false, $bio = false) {
@@ -431,7 +431,7 @@ class bio {
 						WHERE a.auth_bio = ?
 							AND a.auth_field = f.field_id
 						ORDER BY f.field_name';
-					$this->auth_bio[$bio_id] = _rowset(sql_filter($sql, $bio_id), 'field_alias', 'auth_value');
+					$this->auth_bio[$bio_id] = sql_rowset(sql_filter($sql, $bio_id), 'field_alias', 'auth_value');
 				}
 				
 				/*
@@ -526,6 +526,10 @@ class bio {
 		$filepath = XFS.XCOR . 'lang/' . $d . '/' . $f . '.php';
 		if (@file_exists($filepath)) {
 			require_once($filepath);
+		}
+		
+		if (!is_array($this->lang)) {
+			$this->lang = w();
 		}
 		
 		$this->lang += $lang;
@@ -630,11 +634,11 @@ class bio {
 	public function _groups() {
 		global $core;
 		
-		if (!$groups = $core->cache_load('groups')) {
+		if (!$groups = $core->cache->load('groups')) {
 			$sql = 'SELECT *
 				FROM _groups
 				ORDER BY group_name';
-			$groups = $core->cache_store(_rowset($sql, 'group_id'));
+			$groups = $core->cache->store(sql_rowset($sql, 'group_id'));
 		}
 		return $groups;
 	}
@@ -642,14 +646,14 @@ class bio {
 	public function auth_founder($bio) {
 		global $core;
 		
-		if (!$founders = $core->cache_load('founders')) {
+		if (!$founders = $core->cache->load('founders')) {
 			// TODO: Make SQL to get founders profiles
 			
 			$sql = 'SELECT b.bio_id
 				FROM _bio b
 				INNER JOIN _bio_profile p ON b.bio_id = p.profile_bio 
 				WHERE bio_active = ?';
-			$founders = $core->cache_store(_rowset(sql_filter($sql, 1), 'bio_id'));
+			$founders = $core->cache->store(sql_rowset(sql_filter($sql, 1), 'bio_id'));
 		}
 		
 		return (is_array($founders) && in_array($uid, array_keys($founders)));
@@ -670,7 +674,7 @@ class bio {
 				FROM _groups g, _groups_members gm
 				WHERE g.group_id = gm.member_group
 					AND gm.member_uid = ?';
-			$groups = _rowset(sql_filter($sql, $uid), false, 'group_id');
+			$groups = sql_rowset(sql_filter($sql, $uid), false, 'group_id');
 		}
 		
 		return _implode(',', $groups);
@@ -679,11 +683,11 @@ class bio {
 	public function auth_list() {
 		global $core;
 		
-		if (!$fields = $core->cache_load('auth_fields')) {
+		if (!$fields = $core->cache->load('auth_fields')) {
 			$sql = 'SELECT *
 				FROM _bio_auth_field
 				ORDER BY field_alias';
-			$fields = $core->cache_store(_rowset($sql, 'field_id'));
+			$fields = $core->cache->store(sql_rowset($sql, 'field_id'));
 		}
 		
 		return $fields;
@@ -738,7 +742,7 @@ class bio {
 			$sql = 'SELECT *
 				FROM _bio_auth
 				WHERE auth_bio = ?';
-			$auth = _rowset(sql_filter($sql, $uid));
+			$auth = sql_rowset(sql_filter($sql, $uid));
 			
 			foreach ($auth as $row) {
 				if (!isset($row['auth_field'])) {
@@ -771,10 +775,10 @@ class bio {
 					'alias' => $name,
 					'name' => $name
 				);
-				$sql = 'INSERT INTO _bio_auth_field' . _build_array('INSERT', prefix('field', $sql_insert));
-				_sql($sql);
+				$sql = 'INSERT INTO _bio_auth_field' . sql_build('INSERT', prefix('field', $sql_insert));
+				sql_query($sql);
 				
-				$core->cache_unload();
+				$core->cache->unload();
 				
 				if ($global) {
 					$response = true;
@@ -806,8 +810,8 @@ class bio {
 						'bio' => $uid,
 						'field' => $field['field_id']
 					);
-					$sql = 'INSERT INTO _bio_auth' . _build_array('INSERT', prefix('auth', $sql_insert));
-					_sql($sql);
+					$sql = 'INSERT INTO _bio_auth' . sql_build('INSERT', prefix('auth', $sql_insert));
+					sql_query($sql);
 					
 					$this->auth[$uid][$field['field_alias']] = true;
 					break;
@@ -819,13 +823,13 @@ class bio {
 					$sql = 'DELETE FROM _bio_auth
 						WHERE auth_bio = ?
 							AND auth_field = ?';
-					_sql(sql_filter($sql, $uid, $field['field_id']));
+					sql_query(sql_filter($sql, $uid, $field['field_id']));
 					
 					unset($this->auth[$uid][$field['field_alias']]);
 					break;
 			}
 			
-			$core->cache_unload();
+			$core->cache->unload();
 		}
 		
 		return;
@@ -847,10 +851,10 @@ class bio {
 			$sql = 'DELETE FROM _bio_auth
 				WHERE auth_bio = ?
 					AND auth_field = ?';
-			_sql(sql_filter($sql, $uid, $field['field_id']));
+			sql_query(sql_filter($sql, $uid, $field['field_id']));
 			
 			unset($this->auth[$uid][$field['field_alias']]);
-			$core->cache_unload();
+			$core->cache->unload();
 		}
 		
 		return;

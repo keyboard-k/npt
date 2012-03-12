@@ -464,7 +464,7 @@ class database extends dcom {
 			'method' => $method,
 			'actions' => json_encode($query)
 		);
-		$sql = 'INSERT INTO _log' . _build_array('INSERT', prefix('log', $sql_insert));
+		$sql = 'INSERT INTO _log' . sql_build('INSERT', prefix('log', $sql_insert));
 		_sql($sql);
 		
 		return;

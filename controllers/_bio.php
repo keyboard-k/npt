@@ -350,7 +350,7 @@ class __bio extends xmd implements i_bio {
 					WHERE notify_area = ?
 						AND notify_bio = ?
 						AND notify_assoc IN (??)';
-				_sql(sql_filter($sql, $v['area'], $bio->v('bio_id'), $v_assoc));
+				sql_query(sql_filter($sql, $v['area'], $bio->v('bio_id'), $v_assoc));
 			}
 			
 			if (is_ghost()) {
@@ -769,7 +769,7 @@ class __bio extends xmd implements i_bio {
 			
 			$sql = 'UPDATE _bio SET bio_actkey = ?
 				WHERE bio_id = ?';
-			_sql(sql_filter($sql, $actkey, $_bio['bio_id']));
+			sql_query(sql_filter($sql, $actkey, $_bio['bio_id']));
 			
 			//
 			$properties = array(
@@ -1270,7 +1270,7 @@ class __bio extends xmd implements i_bio {
 				
 				$sql = 'UPDATE _bio_store SET store_value = store_value + ??
 					WHERE store_bio = ?';
-				_sql(sql_filter($sql, $total, $bio->v('bio_id')));
+				sql_query(sql_filter($sql, $total, $bio->v('bio_id')));
 			}
 			
 			if (!$error) {

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 07-03-2012 a las 17:36:35
+-- Tiempo de generación: 12-03-2012 a las 10:13:32
 -- Versión del servidor: 5.1.54
 -- Versión de PHP: 5.3.8-1~ppa3~natty
 
@@ -70,7 +70,14 @@ CREATE TABLE IF NOT EXISTS `_bio` (
   `bio_recovery` int(11) NOT NULL DEFAULT '0',
   `bio_fails` mediumint(5) NOT NULL DEFAULT '0',
   PRIMARY KEY (`bio_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `_bio`
+--
+
+INSERT INTO `_bio` (`bio_id`, `bio_type`, `bio_level`, `bio_active`, `bio_alias`, `bio_name`, `bio_first`, `bio_last`, `bio_key`, `bio_address`, `bio_gender`, `bio_birth`, `bio_birthlast`, `bio_regip`, `bio_regdate`, `bio_session_time`, `bio_lastpage`, `bio_timezone`, `bio_dst`, `bio_dateformat`, `bio_lang`, `bio_country`, `bio_avatar`, `bio_actkey`, `bio_recovery`, `bio_fails`) VALUES
+(1, 0, 0, 0, 'guest', 'Guest', '', '', '', 0, 0, '', 0, '0', 0, 0, '0', 0.00, 0, '', '', 0, '', '', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -96,7 +103,14 @@ CREATE TABLE IF NOT EXISTS `_bio_auth_field` (
   `field_alias` varchar(50) NOT NULL DEFAULT '',
   `field_name` varchar(50) NOT NULL DEFAULT '',
   PRIMARY KEY (`field_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `_bio_auth_field`
+--
+
+INSERT INTO `_bio_auth_field` (`field_id`, `field_alias`, `field_name`) VALUES
+(1, 'home', 'home');
 
 -- --------------------------------------------------------
 
@@ -223,6 +237,18 @@ CREATE TABLE IF NOT EXISTS `_bio_newsletter` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `_bio_profile`
+--
+
+CREATE TABLE IF NOT EXISTS `_bio_profile` (
+  `profile_id` int(11) NOT NULL AUTO_INCREMENT,
+  `profile_bio` int(11) NOT NULL,
+  PRIMARY KEY (`profile_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `_bio_rate`
 --
 
@@ -248,6 +274,71 @@ CREATE TABLE IF NOT EXISTS `_bio_store` (
   `store_value` text NOT NULL,
   PRIMARY KEY (`store_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `_config`
+--
+
+CREATE TABLE IF NOT EXISTS `_config` (
+  `config_name` varchar(255) NOT NULL,
+  `config_value` varchar(255) NOT NULL,
+  PRIMARY KEY (`config_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `_config`
+--
+
+INSERT INTO `_config` (`config_name`, `config_value`) VALUES
+('address', 'http://localhost/npt/'),
+('cookie_domain', ''),
+('cookie_name', 'npt'),
+('cookie_path', '/'),
+('cron_enabled', '1'),
+('default_email', 'info@nopticon.com'),
+('domain', 'localhost'),
+('email_gretting', 'Buen d&iacute;a'),
+('mail_port', '110'),
+('mail_server', ''),
+('mail_ticket_key', ''),
+('mail_ticket_login', ''),
+('max_login_attempts', '5'),
+('session_gc', '3600'),
+('session_last_gc', '1331564568'),
+('session_length', '3600'),
+('signin_pop', '0'),
+('site_lang', 'es'),
+('site_title', 'Jade'),
+('xs_auto_compile', '1'),
+('xs_check_switches', '0'),
+('xs_def_template', ''),
+('xs_use_cache', '0'),
+('xs_warn_includes', '1');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `_modules`
+--
+
+CREATE TABLE IF NOT EXISTS `_modules` (
+  `module_id` int(11) NOT NULL AUTO_INCREMENT,
+  `module_active` tinyint(1) NOT NULL,
+  `module_alias` varchar(100) NOT NULL,
+  `module_name` varchar(100) NOT NULL,
+  `module_path` varchar(100) NOT NULL,
+  `module_basename` varchar(100) NOT NULL,
+  PRIMARY KEY (`module_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `_modules`
+--
+
+INSERT INTO `_modules` (`module_id`, `module_active`, `module_alias`, `module_name`, `module_path`, `module_basename`) VALUES
+(1, 1, 'home', 'Principal', './', '_home.php');
 
 -- --------------------------------------------------------
 
@@ -280,6 +371,30 @@ CREATE TABLE IF NOT EXISTS `_objects_type` (
   `type_name` varchar(255) NOT NULL,
   PRIMARY KEY (`type_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `_sessions`
+--
+
+CREATE TABLE IF NOT EXISTS `_sessions` (
+  `session_id` varchar(50) NOT NULL DEFAULT '',
+  `session_bio_id` mediumint(5) NOT NULL DEFAULT '0',
+  `session_last_visit` int(11) NOT NULL DEFAULT '0',
+  `session_start` int(11) NOT NULL DEFAULT '0',
+  `session_time` int(11) NOT NULL DEFAULT '0',
+  `session_ip` varchar(40) NOT NULL DEFAULT '',
+  `session_browser` varchar(255) NOT NULL,
+  `session_page` varchar(100) NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `_sessions`
+--
+
+INSERT INTO `_sessions` (`session_id`, `session_bio_id`, `session_last_visit`, `session_start`, `session_time`, `session_ip`, `session_browser`, `session_page`) VALUES
+('d879404e23de423d5463e2d3f7b85eac', 1, 1331567588, 1331567588, 1331567588, '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.11 (KHTML, like Gecko) Ubuntu/11.04 Chromium/17.0.963.65 Chrome/17.0.963.65 Safari/535.11', 'http://localhost/npt/assets/');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
