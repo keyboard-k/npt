@@ -22,24 +22,9 @@ $lang = array(
 	// Pages
 	'US' => 'Qui&eacute;nes somos',
 	'HOME' => 'Inicio',
-	'TODAY' => 'Actualidad',
-	'RADIO' => 'Radio',
 	'ARTISTS' => 'Artistas',
 	'EVENTS' => 'Eventos',
 	'NEWS' => 'Art&iacute;culos',
-	'BOARD' => 'Foro',
-	'COMMUNITY' => 'Comunidad',
-	'PARTNERS' => 'Aliados',
-	'CREATE' => 'Colaborar',
-	'SERVICES' => 'Servicios',
-	'TOS' => 'T&eacute;rminos de servicio',
-	'AUTH' => 'Permisos',
-	'ORGANIZATION' => 'Organizaci&oacute;n',
-	'HELPDESK' => 'Centro de ayuda',
-	'HELP' => 'Ayuda',
-	'FAQ' => 'Preguntas frequentes',
-	'SEARCH' => 'B&uacute;squeda',
-	'SIGNUP' => 'Reg&iacute;strate',
 	'RSS' => 'RSS',
 	
 	'SERVER_UPTIME' => 'Server Uptime: %s day(s) %s hour(s) %s minute(s)',
@@ -100,20 +85,6 @@ $lang = array(
 	'TOPICS_PAGES_NEXT' => '<strong>Siguientes %d temas</strong> &gt;&gt;',
 	'PAGES_ON' => 'P&aacute;gina <strong>%d</strong> de <strong>%d</strong>',
 	
-	'TOPICS_SHINE' => 'Discusiones destacadas',
-	'FRIEND_REQUESTS' => 'Nuevos amigos',
-	
-	'TOPIC_FEATURED_ADD' => 'Agregar tema de portada',
-	'TOPIC_FEATURED_REM' => 'Quitar tema de portada',
-	'TOPIC_POINTS_ADD' => 'Activar Arkanes',
-	'TOPIC_POINTS_REM' => 'Desactivar Arkanes',
-	
-	// Today
-	'ELEMENTS' => 'elementos',
-	'ELEMENT' => 'elemento',
-	'UNREAD_ITEMS_COUNT' => '%d mensajes nuevos',
-	'UNREAD_ITEM_COUNT' => '%d mensaje nuevo',
-	
 	// Messages
 	'REPLY' => 'Respuesta',
 	'SEND_POST' => 'Env&iacute;a tu comentario',
@@ -126,33 +97,10 @@ $lang = array(
 	'REPORT' => 'reporta',
 	'SUBMIT' => 'Enviar',
 	
-	// Status
-	'STATUS_LEGEND' => '&iquest;Qu&eacute; est&aacute; pasando?',
-	
-	'TODAY_BIRTHDAY' => 'Felicitaciones de cumplea&ntilde;os',
-	
 	// Browser upgrade
 	'BROWSER_UPGRADE_TITLE' => 'Actualiza tu navegador de internet',
 	'BROWSER_UPGRADE_NOTICE' => 'Hemos verificado que usas un navegador que no est&aacute; actualizado.',
 	'BROWSER_UPGRADE_LIST' => 'Te recomendamos utilizar la versi&oacute;n m&aacute;s reciente de <br /><a href="http://www.getfirefox.com/">Firefox</a>, <a href="http://www.opera.com/">Opera</a>, <a href="http://www.google.com/chrome">Chrome</a>, <a href="http://www.microsoft.com/windows/products/winfamily/ie/default.mspx">Internet Explorer</a>, <a href="http://www.apple.com/safari/">Safari</a> u <a href="http://en.wikipedia.org/wiki/List_of_web_browsers">otros</a>.',
-	
-	// Board
-	'BOARD_RETURN' => '&#8617; Ocultar categor&iacute;a',
-	'BOARD_CREATE_TOPIC' => 'Crear tema de discusi&oacute;n',
-	'BOARD_CREATE_POLL' => 'Crear encuesta',
-	
-	// Artists
-	'ARTIST_FAV_ADD' => 'Agregar a favoritos',
-	'ARTIST_FAV_DEL' => 'Borrar de favoritos',
-	'ARTIST_CONTACT' => 'Escribe un mensaje privado',
-	'ARTIST_WEBSITE' => 'Visita los sitios alternos',
-	
-	// Event
-	'EVENTS_GALLERY' => 'Galer&iacute;a de eventos',
-	'EVENTS_NEXT' => 'Pr&oacute;ximos eventos',
-	
-	// Radio
-	'RADIO_UNAVAILABLE' => 'La radio no est&aacute; disponible en este momento.',
 	
 	/* Display */
 	'Smart_dates_ago' => 'Hace %s',
