@@ -1175,9 +1175,9 @@ class style
 			$code = preg_replace('#(\<script src=".*?") \/\>#is', '\1 type="text/javascript"></script>', $code);
 		}
 		
-		if (isset($this->vars['SPATH']))
+		if (isset($this->vars['DOMAIN']))
 		{
-			$code = str_replace('SPATH', $this->vars['SPATH'], $code);
+			$code = str_replace('DOMAIN', $this->vars['DOMAIN'], $code);
 		}
 		
 		return $code;
@@ -1507,8 +1507,8 @@ class style
 				'TEMPLATE_NAME' => $this->tpl,
 				'S_SERVER' => $core->v('site_address'),
 				'S_STYLE' => $core->v('site_address') . 'style/',
-				'S_LIB' => LIBD,
-				'S_VISUAL' => LIBD . LIB_VISUAL . '/',
+				'S_LIB' => '/',
+				'S_VISUAL' => '/' . LIB_VISUAL . '/',
 				'_SELF' => _page(),
 				'SCRIPT_TYPE' => ' type="text/javascript"',
 				'CDATA_BEGIN' => '//<![CDATA[' . "\n",

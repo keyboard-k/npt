@@ -134,7 +134,9 @@ class core {
 			$warning->now('no_path: ' . $_module->module_path);
 		}
 		
-		@require_once($_module->module_path);
+		//_pre($_module->module_path, true);
+		
+		require_once($_module->module_path);
 		
 		$_object = '__' . $mod;
 		if (!class_exists($_object)) {

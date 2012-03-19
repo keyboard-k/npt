@@ -27,13 +27,13 @@ if (!defined('XFS')) exit;
 interface i_sign
 {
 	public function home();
-	public function fb();		// signfb
-	public function fbn();	// signfbn
+	//public function fb();		// signfb
+	//public function fbn();	// signfbn
 	public function in();		// signin
 	public function out();	// signout
 	public function up();		// signup
 	public function ed();		// signed
-	public function el();		// signel
+	//public function el();		// signel
 }
 
 class __sign extends xmd implements i_sign 
@@ -69,6 +69,10 @@ class __sign extends xmd implements i_sign
 	protected function _in_home()
 	{
 		global $bio, $core;
+		
+		if (!_button()) {
+			return;
+		}
 		
 		$v = $this->__(w('page address key'));
 		

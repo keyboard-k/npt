@@ -1,15 +1,12 @@
 <IfModule mod_rewrite.c>
 	RewriteEngine on
 	
-	RewriteCond %{HTTP_HOST} ^w3.(rock)(bio)(\.com)
-	RewriteRule ^(.*)$ http://www.%1%2%3/$1 [R=301,L]
-	
 	RewriteCond %{HTTP_HOST} !^www\.(io)
 	RewriteCond %{HTTP_HOST} ^(www\.)?([a-z0-9]+)\.(io)
 	RewriteRule ^([^.]+)?$ handle.php?module=alias&args=alias:%2.$1 [L]
 	
 	RewriteRule ^$ handle.php?module=home [L]
-	RewriteRule ^(ext)/([0-9a-z\_\-]+)\.(js|css)$ handle.php?module=dev&args=x1:$1.f:$2.e:$3 [L]
+	RewriteRule ^(ext)/([0-9a-z\_\-]+)\.(js|css)$ handle.php?module=ext&args=x1:$1.path:$2.ext:$3 [L]
 	RewriteRule ^(sign)(in|out|up|ed)/?$ handle.php?module=$1&args=x1:$2 [L]
 	RewriteRule ^(my)/(home|page|friends|messages|account)/?$ handle.php?module=bio&args=x1:$2 [L]
 	

@@ -1,8 +1,21 @@
 <!-- INCLUDE js/lib.grid.js -->
-<!-- INCLUDE js/lib.inputlabel.js -->
-<!-- INCLUDE js/lib.swf.js
+<!-- INCLUDE js/lib.input.js -->
+<!-- INCLUDE js/lib.swf.js -->
+<!-- INCLUDE js/bootstrap.js -->
+<!-- INCLUDE js/bootstrap-alert.js -->
+<!-- INCLUDE js/bootstrap-button.js -->
+<!-- INCLUDE js/bootstrap-carousel.js -->
+<!-- INCLUDE js/bootstrap-collapse.js -->
+<!-- INCLUDE js/bootstrap-dropdown.js -->
+<!-- INCLUDE js/bootstrap-modal.js -->
+<!-- INCLUDE js/bootstrap-popover.js -->
+<!-- INCLUDE js/bootstrap-scrollspy.js -->
+<!-- INCLUDE js/bootstrap-tab.js -->
+<!-- INCLUDE js/bootstrap-tooltip.js -->
+<!-- INCLUDE js/bootstrap-transition.js -->
+<!-- INCLUDE js/bootstrap-typeahead.js -->
 
-function home_browse_type()
+/*function home_browse_type()
 {
 	$('.browse_type').click(function() {
 		$.ajax({
@@ -40,7 +53,7 @@ $(function() {
 		
 		return false;
 	});
-});
+});*/
 
 var _ = {
 	aconfig: [],

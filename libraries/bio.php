@@ -762,7 +762,7 @@ class bio {
 		if ($response === false) {
 			$field_found = false;
 			foreach ($auth_fields as $row) {
-				if ($name === $row['field_alias']) {
+				if ($name === $row->field_alias) {
 					$field_found = true;
 					break;
 				}

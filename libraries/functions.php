@@ -1003,11 +1003,11 @@ function _low($a, $match = false)
 
 function _fullname($d)
 {
-	if (!isset($d['user_firstname']) || !isset($d['user_lastname']))
+	if (!isset($d->user_firstname) || !isset($d->user_lastname))
 	{
 		return '';
 	}
-	return _implode(' ', array_map('trim', array($d['user_firstname'], $d['user_lastname'])));
+	return _implode(' ', array_map('trim', array($d->user_firstname, $d->user_lastname)));
 }
 
 function _extension($file)
@@ -1080,7 +1080,7 @@ function _link($mod = '', $attr = false, $ts = true)
 {
 	global $core;
 	
-	$url = get_protocol() . array_key(explode('://', $core->v('site_address')), 1);
+	$url = get_protocol() . array_key(explode('://', $core->v('address')), 1);
 	
 	if ($mod == 'alias' && $attr !== false && is_remote())
 	{

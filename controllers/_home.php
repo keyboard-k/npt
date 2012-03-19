@@ -18,75 +18,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 if (!defined('XFS')) exit;
 
-interface i_home
+class __home extends xmd
 {
-	public function home();
-	public function like();
-	public function status();
-	public function friend();
-}
-
-class __home extends xmd implements i_home
-{
-	public function __construct()
-	{
+	public function __construct() {
 		parent::__construct();
 		
 		$this->auth(false);
 		$this->_m(_array_keys(w('like')));
 	}
 	
-	public function home()
-	{
+	public function home() {
 		global $core, $bio;
 		
 		$page = 15;
 		$today = _htimestamp('md');
 		
-		_pre($bio->v('is_bio'), true);
-		
-		// Personal status
-		//if ($bio->v('bio_active'))
-		{
-			_style('status_post');
-		}
-		
-		// Friends birthday
-		if ($bio->v('auth_member'))
-		{
-			$sql = "SELECT bio_id, bio_alias, bio_name
-				FROM _bio
-				WHERE bio_id IN (
-						SELECT fan_of
-						FROM _bio_fans
-						WHERE fan_assoc = ?
-					)
-					AND bio_active = ?
-					AND bio_birth LIKE '%??'
-				ORDER BY bio_name";
-			$birthday = _rowset(sql_filter($sql, $bio->v('bio_id'), 1, $today));
-		}
-		else
-		{
-			$sql = "SELECT bio_id, bio_alias, bio_name, bio_avatar, bio_avatar_up
-				FROM _bio
-				WHERE bio_level = ?
-					AND bio_birth LIKE '%??'
-				ORDER BY bio_name";
-			$birthday = _rowset(sql_filter($sql, 1, $today));
-		}
-		
-		foreach ($birthday as $i => $row)
-		{
-			if (!$i) _style('birthday');
-			
-			_style('birthday.row', array(
-				'A' => _a($row),
-				'NAME' => $row['bio_name'],
-				'AVATAR' => _avatar($row))
-			);
-		}
-		
+		/*
 		// Board topics
 		if ($bio->v('auth_member'))
 		{
@@ -98,7 +45,7 @@ class __home extends xmd implements i_home
 				WHERE t.topic_show = ?
 				ORDER BY t.topic_shine DESC, t.topic_time DESC
 				LIMIT ??';
-			$topics = _rowset(sql_filter($sql, $bio->v('bio_id'), 1, 10));
+			$topics = sql_rowset(sql_filter($sql, $bio->v('bio_id'), 1, 10));
 		}
 		else
 		{
@@ -169,7 +116,7 @@ class __home extends xmd implements i_home
 		
 		// Banners
 		$this->announce('home');
-		
+		*/
 		return;
 	}
 	
