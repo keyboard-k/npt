@@ -30,7 +30,9 @@ if (@ini_get('register_globals')) {
 }
 
 if (!defined('REQC')) {
-	define('REQC', (strtolower(ini_get('request_order')) == 'gp'));
+	if (strpos(ini_get('request_order'), 'c') === false) {
+		define('REQC', true);
+	}
 }
 
 require_once(XFS.XCOR . 'constants.php');

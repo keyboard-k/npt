@@ -37,7 +37,7 @@ class core {
 		}
 		
 		$address = $this->v('site_address');
-		$host_addr = array_key(explode('/', array_key(explode('://', $address), 1)), 0);
+		$host_addr = array_key(explode('/', array_key(explode('//', $address), 1)), 0);
 		
 		if ($host_addr != get_host()) {
 			$allow_hosts = get_file(XFS.XCOR . 'store/domain_alias');
@@ -61,7 +61,9 @@ class core {
 		}
 		
 		if (strpos($address, 'www.') !== false && strpos(get_host(), 'www.') === false && strpos($address, get_host())) {
-			$a = $this->v('site_address') . str_replace(str_replace('www.', '', $address), '', _page());
+			$page_protocol = array_key(explode('//', _page()), 0);
+			$a = $this->v('site_address') . str_replace(str_replace('www.', '', $page_protocol . $address), '', _page());
+			
 			redirect($a, false);
 		}
 		

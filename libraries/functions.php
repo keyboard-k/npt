@@ -54,7 +54,7 @@ function set_var(&$result, $var, $type, $multibyte = false, $regex = '') {
 }
 
 function request_var($var_name, $default = '', $multibyte = false, $regex = '') {
-	if (REQC) {
+	if (defined('REQC')) {
 		global $core;
 		
 		if (strstr($var_name, $core->v('cookie_name')) && isset($_COOKIE[$var_name])) {
@@ -1022,6 +1022,12 @@ function is_post()
 
 function is_ghost()
 {
+	global $core;
+	
+	if (!$core) {
+		return (isset($_REQUEST['ghost']) && $_REQUEST['ghost']);
+	}
+	
 	return request_var('ghost', 0);
 }
 
@@ -1440,14 +1446,12 @@ function redirect($url, $i = true)
 	
 	$head = 'Location: ' . $url;
 	
-	if (is_ghost())
-	{
+	if (is_ghost()) {
 		echo $head;
-	}
-	else
-	{
+	} else {
 		header($head);
 	}
+	
 	exit();
 }
 

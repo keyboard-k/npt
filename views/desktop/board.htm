@@ -2,32 +2,32 @@
 <!-- INCLUDE doc.body.htm -->
 <!-- ENDIF -->
 
-<!-- IF MODE == 'home' -->
+<div class="container">
+
+<!-- IF X1 == 'home' -->
 <!-- IF ! IS_TOPICS -->
 <div id="f_list"></div>
 
 <!-- BEGIN forums -->
-<div class="float-holder ie-widthfix" id="reference">
-<!-- BEGIN row -->
-	<div class="eachforum eachpost">
-		<h3><a href="{row.U_FORUM}">{row.FORUM_NAME}</a></h3>
-		<div>{row.FORUM_DESC}</div>
-	</div>
-<!-- END row -->
+<div id="reference">
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Foro de discusion</th>
+				<th>Descripcion</th>
+			</tr>
+		</thead>
+		<tbody>
+			<!-- BEGIN row -->
+			<tr>
+				<td><strong><a href="{row.U_FORUM}">{row.FORUM_NAME}</a></strong></td>
+				<td>{row.FORUM_DESC}</td>
+			</tr>
+			<!-- END row -->
+		</tbody>
+	</table>
 </div>
 <!-- END forums -->
-
-<!-- BEGIN forums2 -->
-<div class="float-holder ie-widthfix" id="reference">
-<!-- BEGIN row -->
-	<div class="eachpost">
-		<!-- <div class="a_center"><img src="/pic/{row.S_ROW_COUNT}.jpg" width="98%" alt="" /></div> -->
-		<h3>{row.FORUM_NAME}</h3>
-		<div>{row.FORUM_DESC}</div>
-	</div>
-<!-- END row -->
-</div>
-<!-- END forums2 -->
 
 <script>
 _.config.store('u_home', '{U_HOME}');
@@ -80,6 +80,8 @@ _.config.store('u_home', '{U_HOME}');
 
 <!-- ENDIF -->
 <!-- ENDIF -->
+
+</div>
 
 <!-- IF ! IS_GHOST -->
 <!-- INCLUDE doc.foot.htm -->

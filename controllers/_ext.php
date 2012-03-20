@@ -135,8 +135,7 @@ class __ext extends xmd implements i_ext
 		{
 			case 'css':
 				$content_type = 'text/css; charset=utf-8';
-				
-				$ext = preg_replace('#(border-radius\-?.*?)\: ?(([0-9]+)px;)#is', ((_browser('firefox')) ? '-moz-\1: \2' : ''), $ext);
+				//$ext = preg_replace('#(border-radius\-?.*?)\: ?(([0-9]+)px;)#is', ((_browser('firefox')) ? '-moz-\1: \2' : ''), $ext);
 				$ext = preg_replace('/(#([0-9A-Fa-f]{3})\b)/i', '#\2\2', $ext);
 				$ext = preg_replace('#\/\*(.*?)\*\/#is', '', $ext);
 				$ext = str_replace(array("\r\n", "\n", "\t"), '', $ext);
