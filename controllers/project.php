@@ -124,7 +124,10 @@ abstract class project
 		
 		// BOARD_AUTH_GUEST | BOARD_AUTH_BIO | BOARD_AUTH_GROUP | BOARD_AUTH_ADMIN
 		
-		if ($forum->forum_access != BOARD_AUTH_GUEST)
+		//_pre($forum, true);
+		
+		//if ($forum->forum_access != BOARD_AUTH_GUEST)
+		if ($forum->auth_view != BOARD_AUTH_GUEST)
 		{
 			if (!$bio->v('is_bio')) {
 				return false;

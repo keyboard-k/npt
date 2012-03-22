@@ -50,6 +50,10 @@ $lang = array(
 	// User Control Panel
 	'UCP' => 'Preferencias',
 	
+	// Board
+	'BOARD' => 'Foro de discusi&oacute;n',
+	'BOARD_CREATE_TOPIC' => 'Crear tema de discusi&oacute;n',
+	
 	// User misc
 	'USERS' => 'Usuarios',
 	'SEARCH_CONTACT' => 'Buscar usuario',

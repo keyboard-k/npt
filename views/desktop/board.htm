@@ -8,72 +8,89 @@
 <!-- IF ! IS_TOPICS -->
 <div id="f_list"></div>
 
-<!-- BEGIN forums -->
-<div id="reference">
-	<table class="table table-striped">
-		<thead>
-			<tr>
-				<th>Foro de discusion</th>
-				<th>Descripcion</th>
-			</tr>
-		</thead>
-		<tbody>
-			<!-- BEGIN row -->
-			<tr>
-				<td><strong><a href="{row.U_FORUM}">{row.FORUM_NAME}</a></strong></td>
-				<td>{row.FORUM_DESC}</td>
-			</tr>
-			<!-- END row -->
-		</tbody>
-	</table>
+<div class="row">
+	<!-- BEGIN forums -->
+	<div class="span8">
+		<h2>Foro de discusion</h2>
+		
+		<table class="table table-striped">
+			<tbody>
+				<!-- BEGIN row -->
+				<tr>
+					<td><strong><a href="{row.U_FORUM}">{row.FORUM_NAME}</a></strong></td>
+					<td>{row.FORUM_DESC}</td>
+				</tr>
+				<!-- END row -->
+			</tbody>
+		</table>
+	</div>
+	<!-- END forums -->
+	<!-- BEGIN popular -->
+	<div class="span4">
+		<h2>Temas populares</h2>
+		
+		<table class="table">
+			<tbody>
+				<!-- BEGIN row -->
+				<tr>
+					<td><a href="{row.TOPIC_URL}">{row.TOPIC_TITLE}</a></td>
+					<td>{row.FORUM_DESC}</td>
+				</tr>
+				<!-- END row -->
+			</tbody>
+		</table>
+	</div>
+	<!-- END popular -->
 </div>
-<!-- END forums -->
-
-<script>
-_.config.store('u_home', '{U_HOME}');
-</script>
 <!-- ELSE -->
 
 <div id="forum_controls" class="float-holder ie-widthfix">
-	<h2>{FORUM_TITLE}</h2>
-	<div class="return" id="btn_backboard">{L_BOARD_RETURN}</div>
+	<h1><a href="{U_BOARD}">&laquo;</a> {FORUM_TITLE}</h1>
 </div>
 
 <!-- BEGIN create -->
-<div class="board_cp">
-	<input type="button" id="b_topic_create" name="topic_create" value="{L_BOARD_CREATE_TOPIC}" />
+<br />
+<div>
+	<input class="btn btn-success" type="button" id="b_topic_create" name="topic_create" value="{L_BOARD_CREATE_TOPIC}" />
 	<!-- BEGIN poll -->
-	<input type="button" id="b_poll_create" name="poll_create" value="{L_CBOARD_CREATE_POLL}" />
+	<input class="btn btn-warning" type="button" id="b_poll_create" name="poll_create" value="{L_CBOARD_CREATE_POLL}" />
 	<!-- END poll -->
 </div>
+<br />
 <!-- END create -->
 
-<div class="float-holder ie-widthfix">
-	<div class="w7 float_left">
+<div class="row">
+	<div class="span8">
 		<!-- BEGIN topics -->
-		<div class="list_frame" id="topics_{topics.ALIAS}">
-		
 		<!-- IF topics.NUMS != '' -->
-		<div class="a_center pagination">{L_PAGE}{topics.NUMS}</div>
+		<div class="pagination">{topics.NUMS}</div>
 		<!-- ENDIF -->
 		
-		<ul class="list_lines">
-			<!-- BEGIN row -->
-			<li><a href="{row.TOPIC_URL}">{row.TOPIC_TITLE}</a></li>
-			<!-- END row -->
-		</ul>
-		</div>
+		<table class="table table-striped">
+			<tbody>
+				<!-- BEGIN row -->
+				<tr>
+					<td><strong><a href="{row.TOPIC_URL}">{row.TOPIC_TITLE}</a></strong></td>
+					<td>{row.FORUM_DESC}</td>
+				</tr>
+				<!-- END row -->
+			</tbody>
+		</table>
 		<!-- END topics -->
 	</div>
-	<div class="wt2 float_right">
+	<div class="span4">
+		<h2>Temas populares</h2>
 		<!-- BEGIN popular -->
-		<div class="list_frame" id="popular">
-		<ul class="list_lines">
-			<!-- BEGIN row -->
-			<li><a href="{row.TOPIC_URL}">{row.TOPIC_TITLE}</a></li>
-			<!-- END row -->
-		</ul>
-		</div>
+		<table class="table">
+			<tbody>
+				<!-- BEGIN row -->
+				<tr>
+					<td><a href="{row.TOPIC_URL}">{row.TOPIC_TITLE}</a></td>
+					<td>{row.FORUM_DESC}</td>
+				</tr>
+				<!-- END row -->
+			</tbody>
+		</table>
 		<!-- END popular -->
 	</div>
 </div>

@@ -1254,9 +1254,9 @@ function _pagination($url_format_smp, $url_apnd, $total_items, $per_page, $offse
 	$url_format = _link_apnd($url_format_smp, $url_apnd);
 	
 	$tag = array(
-		'strong' => '<strong>%d</strong>',
-		'span' => '<span> ... </span>',
-		'a' => '<a href="%s">%s</a>'
+		'strong' => '<li class="active"><a href="#">%d</a></li>',
+		'span' => '<li class="disabled"><a href="#">...</a></li>',
+		'a' => '<li><a href="%s">%s</a></li>'
 	);
 	
 	$pages = '';
@@ -1265,7 +1265,7 @@ function _pagination($url_format_smp, $url_apnd, $total_items, $per_page, $offse
 		$init_page_max = ($total_pages > $begin_end) ? $begin_end : $total_pages;
 		for ($i = 1; $i < $init_page_max + 1; $i++)
 		{
-			$pages .= _space($pages) . _pagination_multi($i, $on_page, $per_page, $tag, $url_format, $url_format_smp);
+			$pages .= _pagination_multi($i, $on_page, $per_page, $tag, $url_format, $url_format_smp);
 		}
 		
 		if ($total_pages > $begin_end)
@@ -1303,7 +1303,7 @@ function _pagination($url_format_smp, $url_apnd, $total_items, $per_page, $offse
 	$next = ($on_page < $total_pages) ? sprintf($tag['a'], sprintf($url_format, ($on_page * $per_page)), sprintf($bio->_lang('PAGES_NEXT'), $per_page)) : '';
 	
 	$rest = array(
-		'NUMS' => $pages,
+		'NUMS' => '<ul>' . $pages . '</ul>',
 		'PREV' => $prev,
 		'NEXT' => $next,
 		'ON' => sprintf($bio->_lang('PAGES_ON'), $on_page, max($total_pages, 1))

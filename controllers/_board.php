@@ -41,7 +41,11 @@ class __board extends xmd implements i_board {
 	public function home() {
 		global $core, $bio;
 		
-		$v = $this->__(array('f', 's' => 0, 'g' => 0));
+		$v = $this->__(array('f', 't' => 0, 's' => 0, 'g' => 0));
+		
+		if ($v->t) {
+			return $this->_topic_home();
+		}
 		
 		if (!empty($v->f)) {
 			$sql = 'SELECT *
@@ -91,7 +95,7 @@ class __board extends xmd implements i_board {
 			
 			foreach ($topics as $i => $row) {
 				if (!$i) {
-					$pagination = _pagination(_link('board', $forum->forum_alias), 's:%d', $forum->forum_topics, $core->v('topics_per_page'), $v->s);
+					$pagination = _pagination(_link('board', array('f' => $forum->forum_alias)), 's:%d', $forum->forum_topics, $core->v('topics_per_page'), $v->s);
 					
 					_style('topics', array_merge($pagination, array(
 						'ALIAS' => $forum->forum_alias))
@@ -102,7 +106,7 @@ class __board extends xmd implements i_board {
 					'ID' => $row->topic_id,
 					'TITLE' => $row->topic_title,
 					'REPLIES' => $row->topic_replies,
-					'URL' => _link('board', array('topic', $row->topic_id))
+					'URL' => _link('board', array('t' => $row->topic_id))
 				), 'TOPIC'));
 			}
 			
@@ -112,11 +116,12 @@ class __board extends xmd implements i_board {
 				_style('popular.row', _vs(array(
 					'TITLE' => $row->topic_title,
 					'REPLIES' => $row->topic_replies,
-					'URL' => _link('board', array('topic', $row->topic_id))
-				)), 'TOPIC');
+					'URL' => _link('board', array('t' => $row->topic_id))
+				), 'TOPIC'));
 			}
 			
-			if (!$forum->forum_locked && $this->auth_forum($forum, 'create')) {
+			//if (!$forum->forum_locked && $this->auth_forum($forum, 'create'))
+			{
 				_style('create', array(
 					'U_POST_ACTION' => _link($this->m(), $forum->forum_alias))
 				);
@@ -142,7 +147,7 @@ class __board extends xmd implements i_board {
 		}
 		
 		//
-		// Forums
+		// List Forums
 		$sql = 'SELECT f.*, t.topic_id, t.topic_title, p.post_id, p.post_time, b.bio_id, b.bio_alias, b.bio_name
 			FROM ((_board_forums f
 			LEFT JOIN _board_topics t ON t.topic_id = f.forum_last_topic_id
@@ -160,15 +165,31 @@ class __board extends xmd implements i_board {
 				'POSTS' => $row->forum_posts,
 				'TOPICS' => $row->forum_topics,
 				
-				'U_FORUM' => _link('board', $row->forum_alias))
+				'U_FORUM' => _link('board', array('f' => $row->forum_alias)))
 			);
 		}
 		
-		v_style(array(
-			'IS_TOPICS' => $v->g)
-		);
+		//
+		// Popular topics
+		$sql = 'SELECT topic_id, topic_title, topic_views, topic_replies
+			FROM _board_topics
+			ORDER BY topic_replies DESC, topic_views DESC
+			LIMIT ??';
+		$popular = sql_rowset(sql_filter($sql, $core->v('topics_popular')));
 		
-		//_pre($forums, true);
+		foreach ($popular as $i => $row) {
+			if (!$i) _style('popular');
+			
+			_style('popular.row', _vs(array(
+				'TITLE' => $row->topic_title,
+				'REPLIES' => $row->topic_replies,
+				'URL' => _link('board', array('t' => $row->topic_id))
+			), 'TOPIC'));
+		}
+		
+		v_style(array(
+			'IS_TOPICS' => !empty($v->f))
+		);
 		
 		return;
 	}
@@ -178,7 +199,7 @@ class __board extends xmd implements i_board {
 	}
 	
 	protected function _topic_home() {
-		global $bio;
+		global $bio, $core;
 		
 		$v = $this->__(_array_keys(w('t p s'), 0));
 		
@@ -188,10 +209,10 @@ class __board extends xmd implements i_board {
 		
 		$sql_from = $sql_where = $sql_count = $sql_order = '';
 		
-		if ($v['p']) {
+		if ($v->p) {
 			$sql_count = ', COUNT(p2.post_id) AS prev_posts, p.post_deleted';
 			$sql_from = ', _board_posts p, _board_posts p2, _bio b ';
-			$sql_where = sql_filter('p.post_id = ? AND p.poster_id = b.bio_id AND t.topic_id = p.topic_id AND p2.topic_id = p.topic_id AND p2.post_id <= ?', $v->p, $v->p);
+			$sql_where = sql_filter('p.post_id = ? AND p.poster_id = b.bio_id AND t.topic_id = p.post_topic AND p2.topic_id = p.post_topic AND p2.post_id <= ?', $v->p, $v->p);
 			$sql_order = ' GROUP BY p.post_id, t.topic_id, t.topic_title, t.topic_locked, t.topic_replies, t.topic_time, t.topic_important, t.topic_vote, t.topic_last_post_id, f.forum_name, f.forum_locked, f.forum_id, f.auth_view, f.auth_read, f.auth_post, f.auth_reply, f.auth_announce, f.auth_pollcreate, f.auth_vote ORDER BY p.post_id ASC';
 		} else {
 			$sql_where = sql_filter('t.topic_id = ?', $v->t);
@@ -225,13 +246,13 @@ class __board extends xmd implements i_board {
 		
 		//
 		// Get topic data
-		$sql = 'SELECT p.*, b.bio_id, b.bio_alias, b.bio_name, b.bio_avatar, b.bio_avatar_up, b.bio_sig
+		$sql = 'SELECT p.*, b.bio_id, b.bio_alias, b.bio_name, b.bio_avatar
 			FROM _board_posts p, _bio b
 			WHERE p.post_topic = ?
 				AND p.post_bio = b.bio_id
 			ORDER BY p.post_time ASC
 			LIMIT ??, ??';
-		if (!$posts = sql_rowset(sql_filter($sql, $v->t, $v->offset, $core->v('posts_per_page')))) {
+		if (!$posts = sql_rowset(sql_filter($sql, $v->t, $v->s, $core->v('posts_per_page')))) {
 			_fatal();
 		}
 		
@@ -242,13 +263,13 @@ class __board extends xmd implements i_board {
 		}
 		
 		foreach ($posts as $i => $row) {
-			if (!$i) _style('posts', _pagination(_link('board', array('topic', $v->t, 's%d')), ($topic_data->topic_replies + 1), $core->v('posts_per_page'), $start));
+			if (!$i) _style('posts', _pagination(_link('board', array('topic', $v->t)), 's%d', ($topic_data->topic_replies + 1), $core->v('posts_per_page'), $v->s));
 			
 			$_row = array(
 				'ID' => $row->post_id,
 				'BIO' => $row->post_bio,
 				'TIME' => _format_date($row->post_time),
-				'CONTENT' => _message($row->post_content),
+				'CONTENT' => _message($row->post_text),
 				'PLAYING' => $row->post_playing
 			);
 			_style('posts.row', array_merge($_row, $this->_profile($row)));
