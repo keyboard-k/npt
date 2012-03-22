@@ -1574,14 +1574,25 @@ function _button($name = 'submit')
 
 function _style_uv($a)
 {
-	if (!is_array($a)) $a = w();
-	
-	foreach ($a as $i => $v)
-	{
-		$a[strtoupper($i)] = $v;
+	if (!is_array($a)) {
+		if (is_object($a)) {
+			$_a = w();
+			foreach ($a as $k => $v) {
+				$_a[$k] = $v;
+			}
+			$a = $_a;
+		} else {
+			$a = w();
+		}
 	}
 	
-	return $a;
+	$z = w();
+	foreach ($a as $i => $v)
+	{
+		$z[strtoupper($i)] = $v;
+	}
+	
+	return $z;
 }
 
 function _style($a, $b = array(), $i = false)

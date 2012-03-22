@@ -136,10 +136,14 @@ class __board extends xmd implements i_board {
 				'FORUM_TITLE' => $forum->forum_name,
 				'FORUM_DESC' => $forum->forum_desc,
 				
-				'IS_TOPICS' => $v->g)
+				//'IS_TOPICS' => $v->g,
+				'IS_TOPICS' => !empty($v->f),
+				'IS_TOPIC' => false)
 			);
 			
 			$this->monetize();
+			
+			return;
 			
 			if (is_ghost()) {
 				return;
@@ -188,7 +192,8 @@ class __board extends xmd implements i_board {
 		}
 		
 		v_style(array(
-			'IS_TOPICS' => !empty($v->f))
+			'IS_TOPICS' => !empty($v->f),
+			'IS_TOPIC' => false)
 		);
 		
 		return;
@@ -262,6 +267,8 @@ class __board extends xmd implements i_board {
 			_style('publish');
 		}
 		
+		//_pre($posts, true);
+		
 		foreach ($posts as $i => $row) {
 			if (!$i) _style('posts', _pagination(_link('board', array('topic', $v->t)), 's%d', ($topic_data->topic_replies + 1), $core->v('posts_per_page'), $v->s));
 			
@@ -272,6 +279,7 @@ class __board extends xmd implements i_board {
 				'CONTENT' => _message($row->post_text),
 				'PLAYING' => $row->post_playing
 			);
+			
 			_style('posts.row', array_merge($_row, $this->_profile($row)));
 			
 			if ($allow_posts) {
@@ -283,16 +291,23 @@ class __board extends xmd implements i_board {
 		
 		// TODO: Include social networks buttons
 		
-		$this->set_nav($v->f, $topic_data->forum_name, 'forum');
-		$this->set_nav($v->t, $topic_data->topic_title, 'topic');
+		//$this->set_nav($v->f, $topic_data->forum_name, 'forum');
+		//$this->set_nav($v->t, $topic_data->topic_title, 'topic');
 		
 		//
 		$_v = ($v->p) ? 'p' : 'f';
 		$_w = ($v->p) ? 'p' : 't';
 		
+		//_pre($topic_data, true);
+		
+		_style('topic', $topic_data);
+		
 		v_style(array(
+			'IS_TOPICS' => true,
+			'IS_TOPIC' => true,
+			'U_FORUM' => _link('board', array('f' => $topic_data->forum_alias)),
 			'U_PUBLISH' => _link('board publish'),
-			'H_PUBLISH' => _hidden(array($_v => $v[$_w])))
+			'H_PUBLISH' => _hidden(array($_v => $v->$_w)))
 		);
 		
 		return;

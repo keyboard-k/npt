@@ -22,6 +22,26 @@ abstract class project
 {
 	private $_bio = array();
 	
+	public function _profile($bio) {
+		$response = array();
+		
+		foreach ($bio as $k => $v) {
+			if (strpos($k, 'bio_') === false) continue;
+			
+			switch ($k) {
+				default:
+					$v = $v;
+					break;
+			}
+			
+			$response[$k] = $v;
+		}
+		
+		//_pre($response, true);
+		
+		return $response;
+	}
+	
 	protected function alias_exists($alias)
 	{
 		$sql = 'SELECT alias_id

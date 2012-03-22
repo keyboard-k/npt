@@ -32,6 +32,7 @@ interface i_dev
 	public function random();
 	public function emoticon();
 	public function fetch();
+	public function migrate();
 }
 
 class __dev extends xmd implements i_dev
@@ -41,7 +42,7 @@ class __dev extends xmd implements i_dev
 		parent::__construct();
 		
 		$this->auth(false);
-		$this->_m(_array_keys(w('artists corp emoticon feed fetch jobs uptime random services tos')));
+		$this->_m(_array_keys(w('artists corp emoticon feed fetch jobs uptime random services tos migrate')));
 	}
 	
 	public function home()
@@ -49,6 +50,58 @@ class __dev extends xmd implements i_dev
 		global $warning;
 		
 		$warning->now();
+	}
+	
+	public function migrate() {
+		return $this->method();
+	}
+	
+	protected function _migrate_home() {
+		$sql = 'SELECT *
+			FROM _members
+			WHERE user_id > 1
+			ORDER BY user_id';
+		$members = sql_rowset($sql);
+		
+		foreach ($members as $row) {
+			foreach ($row as $k => $v) {
+				if (is_null($v)) {
+					$row->$k = '';
+				}
+			}	
+			
+			$sql_insert = array(
+				'bio_type' => $row->user_type,
+				'bio_level' => $row->user_level,
+				'bio_active' => $row->user_active,
+				'bio_alias' => $row->username_base,
+				'bio_name' => $row->username,
+				'bio_first' => '',
+				'bio_last' => '',
+				'bio_key' => $row->user_password,
+				'bio_address' => $row->user_email,
+				'bio_gender' => $row->user_gender,
+				'bio_birth' => $row->user_birthday,
+				'bio_birthlast' => $row->user_birthday_last,
+				'bio_regip' => $row->user_regip,
+				'bio_regdate' => $row->user_regdate,
+				'bio_session_time' => $row->user_session_time,
+				'bio_lastpage' => $row->user_lastpage,
+				'bio_timezone' => $row->user_timezone,
+				'bio_dst' => $row->user_dst,
+				'bio_dateformat' => $row->user_dateformat,
+				'bio_lang' => $row->user_lang,
+				'bio_country' => $row->user_country,
+				'bio_avatar' => $row->user_avatar,
+				'bio_actkey' => '',
+				'bio_recovery' => '',
+				'bio_fails' => $row->user_login_tries
+			);
+			$sql = 'INSERT INTO _bio' . sql_build('INSERT', $sql_insert);
+			sql_query($sql);
+		}
+		
+		return _pre('OK.', true);
 	}
 	
 	public function layout()

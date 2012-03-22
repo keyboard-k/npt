@@ -3,7 +3,7 @@
 <!-- ENDIF -->
 
 <div class="container">
-
+	
 <!-- IF X1 == 'home' -->
 <!-- IF ! IS_TOPICS -->
 <div id="f_list"></div>
@@ -43,7 +43,12 @@
 	<!-- END popular -->
 </div>
 <!-- ELSE -->
-
+<!-- IF IS_TOPIC -->
+	<!-- BEGIN topic -->
+	<h1><a href="{U_FORUM}">&laquo;</a> {topic.TOPIC_TITLE}</h1>
+	<!-- END topic -->
+	
+<!-- ELSE -->
 <div id="forum_controls" class="float-holder ie-widthfix">
 	<h1><a href="{U_BOARD}">&laquo;</a> {FORUM_TITLE}</h1>
 </div>
@@ -86,7 +91,6 @@
 				<!-- BEGIN row -->
 				<tr>
 					<td><a href="{row.TOPIC_URL}">{row.TOPIC_TITLE}</a></td>
-					<td>{row.FORUM_DESC}</td>
 				</tr>
 				<!-- END row -->
 			</tbody>
@@ -94,6 +98,7 @@
 		<!-- END popular -->
 	</div>
 </div>
+<!-- ENDIF -->
 
 <!-- ENDIF -->
 <!-- ENDIF -->
