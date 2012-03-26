@@ -267,7 +267,7 @@ class __board extends xmd implements i_board {
 			_style('publish');
 		}
 		
-		//_pre($posts, true);
+		_pre($posts, true);
 		
 		foreach ($posts as $i => $row) {
 			if (!$i) _style('posts', _pagination(_link('board', array('topic', $v->t)), 's%d', ($topic_data->topic_replies + 1), $core->v('posts_per_page'), $v->s));
