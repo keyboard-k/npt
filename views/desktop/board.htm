@@ -78,53 +78,53 @@
 	</div>
 	<!-- END poll -->
 	
-	<!-- IF PAGES_NUMS != '' -->
-	<span class="clear"></span>
-	
-	<div class="p">{PAGES_NUMS}</div>
-	<!-- ENDIF -->
-	
 	<!-- BEGIN posts -->
-	<div class="comments">
+	<!-- IF posts.NUMS != '' -->
+	<span class="clear"></span>
+	
+	<div class="pagination">{posts.NUMS}</div>
+	<!-- ENDIF -->
+	
 	<a name="first"></a>
-	<!-- BEGIN item -->
-	<a name="{item.POST_ID}"></a>
-	<div id="comment-{item.S_ROW_COUNT}">
-	<h3><strong>{item.S_ROW_COUNT}</strong><span>.</span> <em><!-- BEGIN username --><a href="{item.PROFILE}"><!-- END username --><img src="{item.USER_AVATAR}" alt="{item.USERNAME}'s Avatar" /><!-- BEGIN username --></a><!-- END username --></em><cite><!-- BEGIN username --><a href="{item.PROFILE}"><!-- END username -->{item.USERNAME}<!-- BEGIN username --></a><!-- END username --></cite> <span>dijo:</span></h3>
-	<blockquote>
-	<!-- BEGIN controls -->
-	<div class="pad_top ctl el_right a_right">
-		<ul>
-			<!-- BEGIN reply --><li><a href="{reply.URL}">{L_CMT_REPLY}</a><!-- END reply -->
-			<!-- BEGIN report --><li><a href="{report.URL}">{L_CMT_REPORT}</a><!-- END report -->
-			<!-- BEGIN edit --><li><a href="{edit.URL}">{L_CMT_EDIT}</a><!-- END edit -->
-			<!-- BEGIN restore --><li><a href="{restore.URL}"><span class="red">{L_CMT_RESTORE}</span></a><!-- END restore -->
-			<!-- BEGIN delete --><li><a onclick="return confirm('&iquest;Confirmas borrar el mensaje?');" href="{delete.URL}">{L_CMT_DELETE}</a><!-- END delete -->
-		</ul>
-	</div>
-	<span class="clear"></span>
-	<!-- END controls -->
+	<!-- BEGIN row -->
+	<a name="{row.POST_ID}"></a>
 	
-	<div class="col_fr nowraptext">
-	{item.MESSAGE}
-	<!-- IF item.PLAYING != '' -->
-	<br /><br /><div class="a_right nowplay">{item.PLAYING} &nbsp;<img src="{S_ASSETS}/emoticon/arkane.png" alt="" /></div>
-	<!-- ENDIF -->
+	<div class="row">
+		<div class="span3 pagination-centered">
+			<h3><strong class="hide">{row.S_ROW_COUNT}.</strong> <em><a href="{row.PROFILE}"><img src="{row.USER_AVATAR}" alt="" /></a></em><cite><a href="{row.PROFILE}">{row.BIO_NAME}</a></cite> <span class="hide">dijo:</span></h3>
+		</div>
+		
+		<div class="span7">
+			<!-- BEGIN controls -->
+			<div class="">
+				<ul>
+					<!-- BEGIN reply --><li><a href="{reply.URL}">{L_CMT_REPLY}</a><!-- END reply -->
+					<!-- BEGIN report --><li><a href="{report.URL}">{L_CMT_REPORT}</a><!-- END report -->
+					<!-- BEGIN edit --><li><a href="{edit.URL}">{L_CMT_EDIT}</a><!-- END edit -->
+					<!-- BEGIN restore --><li><a href="{restore.URL}"><span class="red">{L_CMT_RESTORE}</span></a><!-- END restore -->
+					<!-- BEGIN delete --><li><a onclick="return confirm('&iquest;Confirmas borrar el mensaje?');" href="{delete.URL}">{L_CMT_DELETE}</a><!-- END delete -->
+				</ul>
+			</div>
+			<span class="clear"></span>
+			<!-- END controls -->
+			
+			<p class="dtposted">{item.TIME}</p>
+			
+			{row.CONTENT}
+			
+			<!-- IF row.PLAYING != '' -->
+			<div class="a_right nowplay">{row.PLAYING} &nbsp;<img src="{S_ASSETS}/emoticon/arkane.png" alt="" /></div>
+			<!-- ENDIF -->
+		</div>
 	</div>
-	<!-- IF item.USER_SIG != '' -->
-	<div class="col_fr nowraptext"><p>--{item.USER_SIG}</p></div>
+	<hr />
+	<!-- END row -->
+	
+	<!-- IF posts.NUMS != '' -->
+	<span class="clear"></span>
+	<div class="pagination">{posts.NUMS}</div>
 	<!-- ENDIF -->
-	<p class="dtposted">{item.POST_DATE}</p>
-	</blockquote>
-	<hr /></div>
-	<!-- END item -->
-	</div>
 	<!-- END posts -->
-	
-	<!-- IF PAGES_NUMS != '' -->
-	<span class="clear"></span>
-	<div class="p">{PAGES_NUMS}</div>
-	<!-- ENDIF -->
 	
 	<!-- BEGIN post_box -->
 	<span class="clear"></span>
@@ -164,7 +164,7 @@
 <!-- BEGIN create -->
 <br />
 <div>
-	<input class="btn btn-success" type="button" id="b_topic_create" name="topic_create" value="{L_BOARD_CREATE_TOPIC}" />
+	<input class="btn btn-warning" type="button" id="b_topic_create" name="topic_create" value="{L_BOARD_CREATE_TOPIC}" />
 	<!-- BEGIN poll -->
 	<input class="btn btn-warning" type="button" id="b_poll_create" name="poll_create" value="{L_CBOARD_CREATE_POLL}" />
 	<!-- END poll -->

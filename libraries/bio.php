@@ -314,7 +314,7 @@ class bio {
 	
 	public function auth_all($bio = false) {
 		$sql = 'SELECT *
-			FROM _bio_auth a, _bio_auth_fields f
+			FROM _bio_auth a, _bio_auth_field f
 			WGERE a.auth_bio = ?
 				AND a.auth_field = f.field_id
 			ORDER BY f.field_name';
@@ -427,7 +427,7 @@ class bio {
 				
 				if (!isset($this->auth_bio[$bio_id])) {
 					$sql = 'SELECT *
-						FROM _bio_auth a, _bio_auth_fields f
+						FROM _bio_auth a, _bio_auth_field f
 						WHERE a.auth_bio = ?
 							AND a.auth_field = f.field_id
 						ORDER BY f.field_name';
@@ -461,7 +461,7 @@ class bio {
 					break;
 				*/
 				
-				$response = (isset($this->auth_bio[$bio_id][$key])) ? true : false;
+				$response = (isset($this->auth_bio[$bio_id]->$key)) ? true : false;
 				break;
 			case 'bio';
 				switch ($key) {
@@ -864,7 +864,7 @@ class bio {
 		$ff = (is_numb($f)) ? 'id' : 'alias';
 		
 		$sql = 'SELECT *
-			FROM _bio_auth_fields
+			FROM _bio_auth_field
 			WHERE field_?? = ?';
 		if (!$field = _fieldrow(sql_filter($sql, $ff, $f))) {
 			return false;

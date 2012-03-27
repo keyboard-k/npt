@@ -139,7 +139,7 @@ body {
   background-color: #ffffff;
 }
 a {
-  color: #0088cc;
+  color: #e35702;
   text-decoration: none;
 }
 a:hover {
@@ -345,7 +345,7 @@ h6 {
   margin: 0;
   font-family: inherit;
   font-weight: bold;
-  color: inherit;
+  color: #333;
   text-rendering: optimizelegibility;
 }
 h1 small,
