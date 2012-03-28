@@ -24,7 +24,8 @@ $lang = array(
 	'HOME' => 'Inicio',
 	'ARTISTS' => 'Artistas',
 	'EVENTS' => 'Eventos',
-	'NEWS' => 'Art&iacute;culos',
+	'NEWS' => 'Noticias',
+	'BLOG' => 'Blog',
 	'RSS' => 'RSS',
 	
 	'SERVER_UPTIME' => 'Server Uptime: %s day(s) %s hour(s) %s minute(s)',
@@ -58,6 +59,8 @@ $lang = array(
 	'USERS' => 'Usuarios',
 	'SEARCH_CONTACT' => 'Buscar usuario',
 	'REGISTER' => 'Crea tu cuenta de usuario',
+	'LOGIN' => 'Continuar',
+	'CONFIRM' => 'Confirmar registro',
 	
 	// Groups
 	'GROUPS' => 'Grupos',

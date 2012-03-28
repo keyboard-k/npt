@@ -1,22 +1,148 @@
 <!-- INCLUDE doc.body.htm -->
 
-<form action="{U_SIGNIN}" method="post" id="login">
-<input type="hidden" name="lastpage" value="{REDIRECT_TO}" />
 <!-- BEGIN error -->
 <div class="red a-center">{error.MESSAGE}</div>
 <!-- END error -->
 
-<div class="ie-widthfix float-holder">
-	<div class="float-left w50 a-right"><label for="username">{L_USERNAME}</label></div>
-	<div class="float-right w50 a-left"><input type="text" id="username" name="username" maxlength="25" value="" /></div>
-</div>	
-<br />
-<div class="ie-widthfix float-holder">
-	<div class="float-left w50 a-right"><label for="password">{L_PASSWORD}</label></div>
-	<div class="float-right w50 a-left"><input type="password" id="password" name="password" maxlength="25" value="" /></div>
+<div class="row">
+
+<div class="span3 hide-text">
+	<div class="io-small">Ideas y Oportunidades</div>
 </div>
-<br />
-<div class="a-center"><input type="submit" name="submit" value="{L_LOGIN}" /></div>
-</form>
+
+<div class="span4">
+	<form action="{U_SIGNIN}" method="post" id="login" class="well form-horizontal">
+		<fieldset>
+			<input type="hidden" name="lastpage" value="{REDIRECT_TO}" />
+			
+			<legend>&iquest;Ya tienes tu usuario?</legend>
+			
+			<div class="control-group">
+				<label class="control-label" for="username">{L_EMAIL}</label>
+				<div class="controls">
+					<input class="input-medium" id="username" name="username" type="text" value="">
+				</div>
+			</div>
+			
+			<div class="control-group">
+				<label class="control-label" for="password">{L_PASSWORD}</label>
+				<div class="controls">
+					<input class="input-medium" id="password" name="password" type="password" value="">
+				</div>
+			</div>
+			
+			<input class="btn btn-warning" type="submit" name="submit" value="{L_LOGIN}" />
+		</fieldset>
+	</form>
+</div>
+
+<div class="span5">
+	<form action="{U_SIGNIN}" method="post" id="login" class="form-horizontal">
+		<fieldset>
+			<input type="hidden" name="lastpage" value="{REDIRECT_TO}" />
+			
+			<legend>Reg&iacute;strate en nuestra comunidad</legend>
+			
+			<div class="control-group">
+				<label class="control-label" for="username">{L_EMAIL}</label>
+				<div class="controls">
+					<input class="input-large" id="username" name="username" type="text" value="">
+				</div>
+			</div>
+			
+			<div class="control-group">
+				<label class="control-label" for="password">{L_PASSWORD}</label>
+				<div class="controls">
+					<input class="input-large" id="password" name="password" type="password" value="">
+				</div>
+			</div>
+			
+			<div class="control-group">
+				<label class="control-label" for="password">Nombres</label>
+				<div class="controls">
+					<input class="input-large" id="firstname" name="firstname" type="text" value="">
+				</div>
+			</div>
+			
+			<div class="control-group">
+				<label class="control-label" for="password">Apellidos</label>
+				<div class="controls">
+					<input class="input-large" id="lastname" name="lastname" type="text" value="">
+				</div>
+			</div>
+			
+			<div class="control-group">
+				<label class="control-label" for="password">Sobrenombre</label>
+				<div class="controls">
+					<input class="input-large" id="alias" name="alias" type="text" value="">
+				</div>
+			</div>
+			
+			<div class="control-group">
+				<label class="control-label" for="password">Pa&iacute;s</label>
+				<div class="controls">
+					<select class="input-large">
+						<option>Guatemala</option>
+						<option>El Salvador</option>
+						<option>Honduras3</option>
+						<option>Nicaragua</option>
+						<option>Costa Rica</option>
+					</select>
+				</div>
+			</div>
+			
+			<div class="control-group">
+				<label class="control-label" for="password">Fecha de nacimiento</label>
+				<div class="controls">
+					<select class="span1">
+						<option>1</option>
+						<option>2</option>
+						<option>3</option>
+					</select>
+					<select class="span1">
+						<option>1</option>
+						<option>2</option>
+						<option>3</option>
+					</select>
+					<select class="span1">
+						<option>1</option>
+						<option>2</option>
+						<option>3</option>
+					</select>
+				</div>
+			</div>
+			
+			<div class="control-group">
+				<label class="control-label" for="password">G&eacute;nero</label>
+				<div class="controls">
+					<label class="radio">
+						<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+						Masculino
+					</label>
+					<label class="radio">
+						<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+						Femenino
+					</label>
+				</div>
+			</div>
+			
+			<div class="control-group">
+				<label class="control-label" for="password">Estdo civil</label>
+				<div class="controls">
+					<select class="input-large">
+						<option>Soltero</option>
+						<option>Casado</option>
+						<option>Divorciado</option>
+						<option>Viudo</option>
+					</select>
+				</div>
+			</div>
+			
+			<input class="btn btn-danger" type="submit" name="submit" value="{L_CONFIRM}" />
+		</fieldset>
+	</form>
+</div>
+
+</div>
 
 <!-- INCLUDE doc.foot.htm -->

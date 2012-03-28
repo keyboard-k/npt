@@ -22,6 +22,7 @@
 </head>
 
 <body>
+	<!-- BEGIN nav -->
 	<div class="navbar navbar-fixed-top">
 		<div class="navbar-inner">
 			<div class="container">
@@ -33,12 +34,12 @@
 				<a class="brand" href="./index.html">{SITE_TITLE}</a>
 				<div class="nav-collapse">
 					<ul class="nav">
-						<li class="active"><a href="{U_HOME}">Inicio</a></li>
-						<li><a href="{U_BOARD}">{L_BOARD}</a></li>
-						<li><a href="#about">Comunidad</a></li>
-						<li><a href="#contact">Contacto</a></li>
+						<!-- BEGIN menu -->
+						<li<!-- BEGIN active --> class="active"<!-- END active -->><a href="{menu.HREF}">{menu.NAME}</a></li>
+						<!-- END menu -->
 					</ul>
 				</div>
 			</div>
 		</div>
 	</div>
+	<!-- END nav -->

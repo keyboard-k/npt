@@ -7,3 +7,17 @@ body {
 	padding-top: 60px;
 	padding-bottom: 40px;
 }
+
+.io-small {
+	/*background: url(../DOMAIN/io-small.jpg);*/
+	display: block;
+	width: 150px;
+	height: 150px;
+	margin: 0 auto;
+	border: 1px solid #ddd;
+	border-radius: 50px;
+}
+
+.marker {
+	background: #468847;
+}
