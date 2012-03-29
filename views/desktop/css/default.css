@@ -9,13 +9,13 @@ body {
 }
 
 .io-small {
-	/*background: url(../DOMAIN/io-small.jpg);*/
+	background: url(../DOMAIN/io-small.jpg);
 	display: block;
 	width: 150px;
 	height: 150px;
 	margin: 0 auto;
-	border: 1px solid #ddd;
-	border-radius: 50px;
+	/*border: 1px solid #ddd;*/
+	/*border-radius: 50px;*/
 }
 
 .marker {

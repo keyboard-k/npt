@@ -1877,6 +1877,23 @@ function _layout($template, $page_title = false, $v_custom = false)
 		$page_title = implode(' . ', $page_title);
 	}
 	
+	$sql = 'SELECT module_alias, module_name
+		FROM _modules
+		WHERE module_header = 1
+			AND module_active = 1
+		ORDER BY module_order';
+	$header_menu = sql_rowset($sql);
+	
+	foreach ($header_menu as $i => $row) {
+		if (!$i) _style('nav');
+		
+		_style('nav.menu', array(
+			'ACTIVE' => false,
+			'HREF' => _link($row->module_alias),
+			'NAME' => $row->module_name
+		));
+	}
+	
 	//
 	$filename = (strpos($template, '#') !== false) ? str_replace('#', '.', $template) : $template . '.htm';
 	$style->set_filenames(array(
