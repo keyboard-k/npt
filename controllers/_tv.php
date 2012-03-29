@@ -76,15 +76,14 @@ class __tv extends xmd {
 			
 			//$preg = preg_match("^http://(?<domain>([^./]+\\.)*youtube\\.com)(/v/|/watch\\?v=)(?<videoId>[A-Za-z0-9_-]{11})", $row->object_content);
 			
-			preg_match("#(?<=v=)[a-zA-Z0-9-]+(?=&)|(?<=v\/)[^&\n]+(?=\?)|(?<=v=)[^&\n]+|(?<=youtu.be/)[^&\n]+#", $row->object_content, $preg);
-			
-			_pre($preg, true);
+			preg_match('#(?<=(?:v|i)=)[a-zA-Z0-9-]+(?=&)|(?<=(?:v|i)\/)[^&\n]+|(?<=embed\/)[^"&\n]+|(?<=(?:v|i)=)[^&\n]+|(?<=youtu.be\/)[^&\n]+#', $row->object_content, $preg);
 			
 			$_row = array(
 				'ID' => $row->object_id,
 				'BIO' => $row->object_bio,
 				'SUBJECT' => $row->object_subject,
 				'CONTENT' => $row->object_content,
+				'VIDEO' => $preg[0],
 				'TIME' => $bio->format_date($row->object_time)
 			);
 			
