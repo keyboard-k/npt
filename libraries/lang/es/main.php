@@ -81,6 +81,10 @@ $lang = array(
 	'REFRESH' => 'Actualizar',
 	'GO' => 'Ir',
 	'EMAIL' => 'Email',
+	'POSTED_BY' => 'Publicado por',
+	'VIEW_ALL' => 'Ver todos',
+	
+	'TV' => 'Televisi&oacute;n',
 	
 	'PAGE' => 'P&aacute;gina: ',
 	'PAGES_ON' => 'P&aacute;gina <strong>%d</strong> de <strong>%d</strong>',

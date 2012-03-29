@@ -1,6 +1,6 @@
 <!-- INCLUDE doc.body.htm -->
 
-<h1>{L_NEWS}</h1>
+<h1>{L_TV}</h1>
 
 <!-- IF X1 == 'read' -->
 <h2>{V_SUBJECT}</h2>
@@ -9,9 +9,9 @@
 <!-- IF X1 == 'home' -->
 <div class="row">
 <div class="span9">
-	<!-- BEGIN news -->
-	<!-- IF news.NUMS != '' -->
-	<div class="pagination">{news.NUMS}</div>
+	<!-- BEGIN tv -->
+	<!-- IF tv.NUMS != '' -->
+	<div class="pagination">{tv.NUMS}</div>
 	<!-- ENDIF -->
 	
 	<!-- BEGIN row -->
@@ -43,10 +43,10 @@
 	<!-- END row -->
 	</ul>
 	
-	<!-- IF news.NUMS != '' -->
-	<div class="pagination">{news.NUMS}</div>
+	<!-- IF tv.NUMS != '' -->
+	<div class="pagination">{tv.NUMS}</div>
 	<!-- ENDIF -->
-	<!-- END news -->
+	<!-- END tv -->
 </div>
 <div class="span3">
 	<!-- BEGIN rel_type -->
