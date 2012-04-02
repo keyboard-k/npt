@@ -1,6 +1,6 @@
 <!-- INCLUDE doc.body.htm -->
 
-<h1>{L_NEWS}</h1>
+<h1>{L_BLOG}</h1>
 
 <!-- IF X1 == 'read' -->
 <h2>{V_SUBJECT}</h2>
@@ -9,9 +9,9 @@
 <!-- IF X1 == 'home' -->
 <div class="row">
 	<div class="span9">
-		<!-- BEGIN news -->
-		<!-- IF news.NUMS != '' -->
-		<div class="pagination">{news.NUMS}</div>
+		<!-- BEGIN blog -->
+		<!-- IF blog.NUMS != '' -->
+		<div class="pagination">{blog.NUMS}</div>
 		<!-- ENDIF -->
 		
 		<table class="table table-striped">
@@ -44,10 +44,10 @@
 			</tbody>
 		</table>
 		
-		<!-- IF news.NUMS != '' -->
-		<div class="pagination">{news.NUMS}</div>
+		<!-- IF blog.NUMS != '' -->
+		<div class="pagination">{blog.NUMS}</div>
 		<!-- ENDIF -->
-		<!-- END news -->
+		<!-- END blog -->
 	</div>
 	<div class="span3">
 		<!-- BEGIN rel_type -->
@@ -56,7 +56,7 @@
 		<table class="table">
 			<tbody>
 				<tr>
-					<td><a href="{rel_type.NEWS_URL}">{L_VIEW_ALL}</a></td>
+					<td><a href="{rel_type.BLOG_URL}">{L_VIEW_ALL}</a></td>
 				</tr>
 				<!-- BEGIN row -->
 				<tr>

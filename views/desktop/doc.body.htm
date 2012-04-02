@@ -1,3 +1,22 @@
 <!-- INCLUDE doc.head.htm -->
 
 <div class="container">
+	
+<div class="row">
+	<div class="span2 hide-text"><a href="/" class="io-small">Ideas y Oportunidades</a></div>
+	
+	<div class="span10">
+		<!-- BEGIN nav -->
+		<ul class="nav-menu">
+			<!-- IF USER_NAME != 'Guest' -->
+			<li><a class="btn btn-danger btn-large" href="#">{USER_NAME}</a></li>
+			<!-- ENDIF -->
+			<!-- BEGIN menu -->
+			<li<!-- BEGIN active --> class="active"<!-- END active -->><a class="btn btn-warning btn-large" href="{menu.HREF}">{menu.NAME}</a></li>
+			<!-- END menu -->
+		</ul>
+		<!-- END nav -->
+	</div>
+</div>
+
+<br />

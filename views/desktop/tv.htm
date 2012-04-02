@@ -2,71 +2,23 @@
 
 <h1>{L_TV}</h1>
 
-<!-- IF X1 == 'read' -->
-<h2>{V_SUBJECT}</h2>
-<!-- ENDIF -->
-
 <!-- IF X1 == 'home' -->
-<div class="row">
-<div class="span9">
 	<!-- BEGIN tv -->
-	<!-- IF tv.NUMS != '' -->
-	<div class="pagination">{tv.NUMS}</div>
-	<!-- ENDIF -->
-	
-	<!-- BEGIN row -->
-	<a name="{row.POST_ID}"></a>
-	
-	<h2><a class="relevant" href="{row.URL}">{row.SUBJECT}</a></h2>
-	{L_POSTED_BY} <a href="{row.PROFILE}">{row.BIO_NAME}</a>, el <i>{row.TIME}</i>
-	
-	<div class="row">
-		<div class="span12">
-			<!-- BEGIN controls -->
-			<div class="">
-				<ul>
-					<!-- BEGIN reply --><li><a href="{reply.URL}">{L_CMT_REPLY}</a><!-- END reply -->
-					<!-- BEGIN report --><li><a href="{report.URL}">{L_CMT_REPORT}</a><!-- END report -->
-					<!-- BEGIN edit --><li><a href="{edit.URL}">{L_CMT_EDIT}</a><!-- END edit -->
-					<!-- BEGIN restore --><li><a href="{restore.URL}"><span class="red">{L_CMT_RESTORE}</span></a><!-- END restore -->
-					<!-- BEGIN delete --><li><a onclick="return confirm('&iquest;Confirmas borrar el mensaje?');" href="{delete.URL}">{L_CMT_DELETE}</a><!-- END delete -->
-				</ul>
-			</div>
-			<!-- END controls -->
-			
-			<br /><br />
-			{row.CONTENT}
-		</div>
-	</div>
-	
-	<hr />
-	<!-- END row -->
+	<br />
+	<ul class="breadcrumb">
+	  <li>
+	    {tv.FIRST_SUBJECT}
+	  </li>
 	</ul>
-	
-	<!-- IF tv.NUMS != '' -->
-	<div class="pagination">{tv.NUMS}</div>
-	<!-- ENDIF -->
+
+	<ul class="thumbnails">
+		<!-- BEGIN row -->
+		<li class="{row.SPAN} ttv">
+			{row.EMBED}
+		</li>
+		<!-- END row -->
+	</ul>
 	<!-- END tv -->
-</div>
-<div class="span3">
-	<!-- BEGIN rel_type -->
-	<h2>Categor&iacute;as</h2>
-	
-	<table class="table">
-		<tbody>
-			<tr>
-				<td><a href="{rel_type.NEWS_URL}">{L_VIEW_ALL}</a></td>
-			</tr>
-			<!-- BEGIN row -->
-			<tr>
-				<td><a href="{row.TYPE_ALIAS}">{row.TYPE_NAME}</a></td>
-			</tr>
-			<!-- END row -->
-		</tbody>
-	</table>
-	<!-- END rel_type -->
-</div>
-</div>
 <!-- ELSEIF X1 == 'read' -->
 <div class="comments">
 

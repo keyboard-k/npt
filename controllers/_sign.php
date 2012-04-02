@@ -76,8 +76,7 @@ class __sign extends xmd implements i_sign
 		
 		$v = $this->__(w('page address key'));
 		
-		if ($bio->v('auth_member'))
-		{
+		if ($bio->v('auth_member')) {
 			redirect($v->page);
 		}
 		
@@ -121,43 +120,44 @@ class __sign extends xmd implements i_sign
 		}
 
 		$v->register = false;
-		$v->field = (is_email($v->address)) ? 'address' : 'name';
+		$v->field = (email_format($v->address)) ? 'address' : 'name';
 		
-		$sql = 'SELECT bio_id, bio_key, bio_fails
-			FROM _bio
-			WHERE bio_?? = ?
-				AND bio_blocked = ?';
-		if ($_bio = _fieldrow(sql_filter($sql, $v->field, $v->address, 0)))
-		{
-			if ($_bio->bio_key === _password($v->key))
-			{
-				if ($_bio->bio_fails)
-				{
-					$sql = 'UPDATE _bio SET bio_fails = 0
-						WHERE bio_id = ?';
-					sql_query(sql_filter($sql, $_bio->bio_id));
+		$sql = 'SELECT address_bio
+			FROM _bio_address
+			WHERE address_name = ?';
+		if ($bio_address = sql_field(sql_filter($sql, $v->address), 'address_bio', 0)) {
+			$sql = 'SELECT bio_id, bio_key, bio_fails
+				FROM _bio
+				WHERE bio_id = ?
+					AND bio_active = ?';
+			if ($_bio = sql_fieldrow(sql_filter($sql, $bio_address, 1))) {
+				if (ValidatePassword($v->key, $_bio->bio_key)) {
+					if ($_bio->bio_fails) {
+						$sql = 'UPDATE _bio SET bio_fails = 0
+							WHERE bio_id = ?';
+						sql_query(sql_filter($sql, $_bio->bio_id));
+					}
+					
+					//_pre($_bio->bio_id, true);
+					
+					$bio->session_create($_bio->bio_id);
+					redirect($v->page);
 				}
 				
-				$bio->session_create($_bio->bio_id);
-				redirect($v->page);
+				if ($_bio->bio_fails == $core->v('account_failcount')) {
+					// TODO: Captcha system if failcount reached
+					// TODO: Notification about blocked account
+					_fatal(508);
+				}
+				
+				$sql = 'UPDATE _bio SET bio_fails = bio_fails + 1
+					WHERE bio_id = ?';
+				sql_query(sql_filter($sql, $_bio->bio_id));
+				
+				sleep(5);
+				$this->warning->set('login_fail');
 			}
-			
-			if ($_bio->bio_fails == $core->v('account_failcount'))
-			{
-				// TODO: Captcha system if failcount reached
-				// TODO: Notification about blocked account
-				_fatal(508);
-			}
-			
-			$sql = 'UPDATE _bio SET bio_fails = bio_fails + 1
-				WHERE bio_id = ?';
-			sql_query(sql_filter($sql, $_bio->bio_id));
-			
-			sleep(5);
-			$this->warning->set('login_fail');
-		}
-		else
-		{
+		} else {
 			$v->register = true;
 		}
 		

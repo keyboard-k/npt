@@ -23,13 +23,82 @@ class __blog extends xmd {
 		parent::__construct();
 		
 		$this->auth(false);
-		$this->_m(_array_keys(w('like publish')));
+		$this->_m(_array_keys(w('read like publish')));
 	}
 	
 	public function home() {
 		global $core, $bio;
 		
+		$v = $this->__(array_merge(w('a r'), _array_keys(w('s'), 0)));
 		
+		if (!empty($v->a)) {
+			
+		}
+		
+		if (!empty($v->r)) {
+			$sql = 'SELECT *
+				FROM _objects o, _objects_type t, _bio b, _objects_rel_assoc ra, _objects_rel_type rt
+				WHERE t.type_alias = ?
+					AND rt.type_alias = ?
+					AND o.object_bio = b.bio_id
+					AND ra.assoc_object = o.object_id
+					AND ra.assoc_rel_type = rt.type_id
+				ORDER BY o.object_time
+				LIMIT ??, ??';
+			$blog = sql_rowset(sql_filter($sql, 'blog', $v->r, $v->s, $core->v('objects_per_page')));
+			
+			$sql = 'SELECT COUNT(object_id) AS total
+				FROM _objects o, _objects_type t, _objects_rel_assoc ra, _objects_rel_type rt
+				WHERE t.type_alias = ?
+					AND rt.type_alias = ?
+					AND ra.assoc_object = o.object_id
+					AND ra.assoc_rel_type = rt.type_id';
+			$blog_total = sql_field(sql_filter($sql, 'blog', $v->r), 'total', 0);
+		} else {
+			$sql = 'SELECT *
+				FROM _objects o, _objects_type t, _bio b
+				WHERE t.type_alias = ?
+					AND o.object_type = t.type_id
+					AND o.object_bio = b.bio_id
+				ORDER BY o.object_time
+				LIMIT ??, ??';
+			$blog = sql_rowset(sql_filter($sql, 'blog', $v->s, $core->v('objects_per_page')));
+			
+			$sql = 'SELECT COUNT(object_id) AS total
+				FROM _objects o, _objects_type t
+				WHERE t.type_alias = ?
+					AND o.object_type = t.type_id';
+			$blog_total = sql_field(sql_filter($sql, 'blog'), 'total', 0);
+		}
+		
+		foreach ($blog as $i => $row) {
+			if (!$i) _style('blog', _pagination(_link('blog'), 's:%d', ($blog_total + 1), $core->v('objects_per_page'), $v->s));
+			
+			$_row = array(
+				'ID' => $row->object_id,
+				'BIO' => $row->object_bio,
+				'SUBJECT' => $row->object_subject,
+				'CONTENT' => _message($row->object_content),
+				'TIME' => $bio->format_date($row->object_time)
+			);
+			
+			_style('blog.row', array_merge($_row, $this->_profile($row)));
+		}
+		
+		$sql = 'SELECT *
+			FROM _objects_rel_type
+			ORDER BY type_alias';
+		$rel_type = sql_rowset($sql);
+		
+		foreach ($rel_type as $i => $row) {
+			if (!$i) _style('rel_type', array(
+				'BLOG_URL' => _link('blog')
+			));
+			
+			$row->type_alias = _link('blog', array('r' => $row->type_alias));
+			
+			_style('rel_type.row', $row);
+		}
 		
 		return;
 	}

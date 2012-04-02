@@ -47,7 +47,7 @@ class __news extends xmd {
 				LIMIT ??, ??';
 			$news = sql_rowset(sql_filter($sql, 'news', $v->r, $v->s, $core->v('objects_per_page')));
 			
-			$sql = 'SELECT MAX(object_id) AS total
+			$sql = 'SELECT COUNT(object_id) AS total
 				FROM _objects o, _objects_type t, _objects_rel_assoc ra, _objects_rel_type rt
 				WHERE t.type_alias = ?
 					AND rt.type_alias = ?
@@ -64,7 +64,7 @@ class __news extends xmd {
 				LIMIT ??, ??';
 			$news = sql_rowset(sql_filter($sql, 'news', $v->s, $core->v('objects_per_page')));
 			
-			$sql = 'SELECT MAX(object_id) AS total
+			$sql = 'SELECT COUNT(object_id) AS total
 				FROM _objects o, _objects_type t
 				WHERE t.type_alias = ?
 					AND o.object_type = t.type_id';
@@ -78,7 +78,7 @@ class __news extends xmd {
 				'ID' => $row->object_id,
 				'BIO' => $row->object_bio,
 				'SUBJECT' => $row->object_subject,
-				'CONTENT' => $row->object_content,
+				'CONTENT' => _message($row->object_content),
 				'TIME' => $bio->format_date($row->object_time)
 			);
 			

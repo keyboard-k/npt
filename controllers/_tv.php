@@ -29,54 +29,53 @@ class __tv extends xmd {
 	public function home() {
 		global $core, $bio;
 		
-		$v = $this->__(array_merge(w('v r'), _array_keys(w('s'), 0)));
+		$v = $this->__(array_merge(w('r'), _array_keys(w('v'), 0)));
 		
-		if (!empty($v->a)) {
-			
-		}
-		
-		if (!empty($v->r)) {
+		if (!empty($v->v)) {
 			$sql = 'SELECT *
-				FROM _objects o, _objects_type t, _bio b, _objects_rel_assoc ra, _objects_rel_type rt
-				WHERE t.type_alias = ?
-					AND rt.type_alias = ?
-					AND o.object_bio = b.bio_id
-					AND ra.assoc_object = o.object_id
-					AND ra.assoc_rel_type = rt.type_id
-				ORDER BY o.object_time
-				LIMIT ??, ??';
-			$tv = sql_rowset(sql_filter($sql, 'tv', $v->r, $v->s, $core->v('objects_per_page')));
+				FROM _objects o, _objects_type t
+				WHERE o.object_id = ?
+					AND t.type_alias = ?
+					AND o.object_type = t.type_id';
+			$video = sql_rowset(sql_filter($sql, $v->v, 'tv'));
 			
-			$sql = 'SELECT MAX(object_id) AS total
-				FROM _objects o, _objects_type t, _objects_rel_assoc ra, _objects_rel_type rt
-				WHERE t.type_alias = ?
-					AND rt.type_alias = ?
-					AND ra.assoc_object = o.object_id
-					AND ra.assoc_rel_type = rt.type_id';
-			$tv_total = sql_field(sql_filter($sql, 'tv', $v->r), 'total', 0);
+			$sql = 'SELECT *
+				FROM _objects o, _objects_type t, _bio b
+				WHERE o.object_id <> ?
+					AND t.type_alias = ?
+					AND o.object_type = t.type_id
+					AND o.object_bio = b.bio_id
+				ORDER BY o.object_time';
+			$tv_list = sql_rowset(sql_filter($sql, $v->v, 'tv'));
+			
+			$tv = w();
+			foreach ($video as $row) {
+				$tv[] = $row;
+			}
+			
+			foreach ($tv_list as $row) {
+				$tv[] = $row;
+			}
+			
+			//_pre($tv, true); 
 		} else {
 			$sql = 'SELECT *
 				FROM _objects o, _objects_type t, _bio b
 				WHERE t.type_alias = ?
 					AND o.object_type = t.type_id
 					AND o.object_bio = b.bio_id
-				ORDER BY o.object_time
-				LIMIT ??, ??';
-			$tv = sql_rowset(sql_filter($sql, 'tv', $v->s, $core->v('objects_per_page')));
-			
-			$sql = 'SELECT COUNT(object_id) AS total
-				FROM _objects o, _objects_type t
-				WHERE t.type_alias = ?
-					AND o.object_type = t.type_id';
-			$tv_total = sql_field(sql_filter($sql, 'tv'), 'total', 0);
+				ORDER BY o.object_time';
+			$tv = sql_rowset(sql_filter($sql, 'tv'));
 		}
-
+		
 		foreach ($tv as $i => $row) {
-			if (!$i) _style('tv', _pagination(_link('tv'), 's:%d', ($tv_total + 1), $core->v('objects_per_page'), $v->s));
+			if (!$i) _style('tv', array('FIRST_SUBJECT' => $row->object_subject));
 			
 			//$preg = preg_match("^http://(?<domain>([^./]+\\.)*youtube\\.com)(/v/|/watch\\?v=)(?<videoId>[A-Za-z0-9_-]{11})", $row->object_content);
 			
 			preg_match('#(?<=(?:v|i)=)[a-zA-Z0-9-]+(?=&)|(?<=(?:v|i)\/)[^&\n]+|(?<=embed\/)[^"&\n]+|(?<=(?:v|i)=)[^&\n]+|(?<=youtu.be\/)[^&\n]+#', $row->object_content, $preg);
+			
+			$embed = '<iframe width="560" height="315" src="http://www.youtube.com/embed/' . $preg[0] . '" frameborder="0" allowfullscreen></iframe>';
 			
 			$_row = array(
 				'ID' => $row->object_id,
@@ -84,6 +83,8 @@ class __tv extends xmd {
 				'SUBJECT' => $row->object_subject,
 				'CONTENT' => $row->object_content,
 				'VIDEO' => $preg[0],
+				'EMBED' => (!$i) ? $embed : '<a href="' . _link('tv', array('v' => $row->object_id)) . '" class="thumbnail"><img src="http://i2.ytimg.com/vi/' . $preg[0] . '/default.jpg" alt=""><br /><h5>' . $row->object_subject . '</h5></a>',
+				'SPAN' => (!$i) ? 'span6' : 'span2',
 				'TIME' => $bio->format_date($row->object_time)
 			);
 			

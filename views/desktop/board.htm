@@ -11,16 +11,16 @@
 	<div class="span8">
 		<h2>Foro de discusion</h2>
 		
-		<table class="table table-striped">
-			<tbody>
-				<!-- BEGIN row -->
-				<tr>
-					<td><strong><a href="{row.U_FORUM}">{row.FORUM_NAME}</a></strong></td>
-					<td>{row.FORUM_DESC}</td>
-				</tr>
-				<!-- END row -->
-			</tbody>
-		</table>
+		<ul class="thumbnails">
+			<!-- BEGIN row -->
+			<li class="span2">
+				<a class="btn" href="{row.U_FORUM}">
+				<h4>{row.FORUM_NAME}</h4>
+				<p><img src="http://reformrevolution.com/wp-content/uploads/cities-iv-04.jpg" style="width: 175px; height: 100px;" alt="" /></p>
+				</a>
+			</li>
+			<!-- END row -->
+		</ul>
 	</div>
 	<!-- END forums -->
 	<!-- BEGIN popular -->

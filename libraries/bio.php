@@ -67,14 +67,16 @@ class bio {
 		
 		if (isset($result->bio_key)) unset($result->bio_key);
 		
-		$sql = 'SELECT *
-			FROM _bio_auth_property
-			LEFT JOIN _bio_auth ON property_profile = auth_profile
-			INNER JOIN _bio_auth_profile ON property_profile = profile_id
-			INNER JOIN _bio_auth_field ON property_field = field_id
-			WHERE auth_bio = ?
-			ORDER BY field_alias';
-		$result->bio_auth = sql_rowset(sql_filter($sql, $result->bio_id));
+		if (isset($result->bio_id)) {
+			$sql = 'SELECT *
+				FROM _bio_auth_property
+				LEFT JOIN _bio_auth ON property_profile = auth_profile
+				INNER JOIN _bio_auth_profile ON property_profile = profile_id
+				INNER JOIN _bio_auth_field ON property_field = field_id
+				WHERE auth_bio = ?
+				ORDER BY field_alias';
+			$result->bio_auth = sql_rowset(sql_filter($sql, $result->bio_id));
+		}
 		
 		return $result;
 	}
@@ -150,7 +152,7 @@ class bio {
 		// User does not exist
 		// User is inactive
 		// User is bot
-		if (!count($this->base) || !is_array($this->base)) {
+		if (!count($this->base) || !is_object($this->base)) {
 			$this->cookie['u'] = 1;
 			$this->base = $this->select($this->cookie['u']);
 		}
