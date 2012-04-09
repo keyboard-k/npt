@@ -166,7 +166,15 @@ class bio {
 				ORDER BY session_time DESC
 				LIMIT 1';
 			if ($result = sql_fieldrow(sql_filter($sql, $this->base->bio_id))) {
-				$this->base = array_merge($this->base, $result);
+				$result2 = w();
+				foreach ($result as $result_k => $result_v) {
+					$result2[$result_k] = $result_v;
+				}
+				$result3 = w();
+				foreach ($this->base as $result_k => $result_v) {
+					$result3[$result_k] = $result_v;
+				}
+				$this->base = (object) array_merge($result3, $result2);
 				$this->session = $this->base->session_id;
 				unset($result);
   		}

@@ -1395,7 +1395,7 @@ table .span24 {
   height: 14px;
   line-height: 14px;
   vertical-align: text-top;
-  background-image: url("../img/glyphicons-halflings.png");
+  background-image: url("../DOMAIN/glyphicons-halflings.png");
   background-position: 14px 14px;
   background-repeat: no-repeat;
   *margin-right: .3em;
@@ -1405,7 +1405,7 @@ table .span24 {
   *margin-left: 0;
 }
 .icon-white {
-  background-image: url("../img/glyphicons-halflings-white.png");
+  background-image: url("../DOMAIN/glyphicons-halflings-white.png");
 }
 .icon-glass {
   background-position: 0      0;
@@ -2121,12 +2121,12 @@ table .span24 {
 }
 .btn-warning {
   background-color: #faa732;
-  background-image: -moz-linear-gradient(top, #fbb450, #f89406);
-  background-image: -ms-linear-gradient(top, #fbb450, #f89406);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fbb450), to(#f89406));
-  background-image: -webkit-linear-gradient(top, #fbb450, #f89406);
-  background-image: -o-linear-gradient(top, #fbb450, #f89406);
-  background-image: linear-gradient(top, #fbb450, #f89406);
+  background-image: -moz-linear-gradient(top, #fbb450, #e46c0b);
+  background-image: -ms-linear-gradient(top, #fbb450, #e46c0b);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fbb450), to(#e46c0b));
+  background-image: -webkit-linear-gradient(top, #fbb450, #e46c0b);
+  background-image: -o-linear-gradient(top, #fbb450, #e46c0b);
+  background-image: linear-gradient(top, #fbb450, #e46c0b);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fbb450', endColorstr='#f89406', GradientType=0);
   border-color: #f89406 #f89406 #ad6704;
