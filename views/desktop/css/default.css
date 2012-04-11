@@ -43,6 +43,14 @@ body {
 	display: block;
 }
 
+.nav-menu2 {
+	list-style: none;
+	margin: 40px 0;
+	padding: 0;
+	border: 0;
+	display: block;
+}
+
 .login-top {
 	margin-top: 30px;
 }

@@ -1921,6 +1921,7 @@ function _layout($template, $page_title = false, $v_custom = false)
 	
 	//
 	$v_assign = array(
+		'USER_ID' => $bio->v('bio_id'),
  		'USER_NAME' => $bio->v('bio_name'),
 		'SITE_TITLE' => $core->v('site_title'),
 		'PAGE_TITLE' => $page_title,

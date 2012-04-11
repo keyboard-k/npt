@@ -8,7 +8,7 @@
 	<div class="span4">
 		<!-- BEGIN nav -->
 		<ul class="nav-menu">
-			<!-- IF USER_NAME != 'Guest' -->
+			<!-- IF USER_ID != 1 -->
 			<li><a class="btn btn-danger btn-large" href="#">{USER_NAME}</a></li>
 			<!-- ENDIF -->
 			<!-- BEGIN menu2 -->
@@ -16,27 +16,26 @@
 			<!-- END menu2 -->
 		</ul>
 		
-		<ul class="nav-menu">
-			<!-- BEGIN menu -->
-			<li<!-- IF ! menu.S_ROW_COUNT --> class="nav-menu-left"<!-- ENDIF -->><a class="btn btn-warning btn-large radial" href="{menu.HREF}">
-				<i class="icon-<!-- IF menu.S_ROW_COUNT == 0 -->gift<!-- ELSEIF menu.S_ROW_COUNT == 1 -->home<!-- ELSEIF menu.S_ROW_COUNT == 2 -->arrow-left<!-- ELSE -->search<!-- ENDIF -->"></i></a>
-			</li>
-			<!-- END menu -->
-		</ul>
+		<div class="well">
+			<ul class="nav-menu">
+				<!-- BEGIN menu -->
+				<li<!-- IF ! menu.S_ROW_COUNT --> class="nav-menu-left"<!-- ENDIF -->><a class="btn btn-warning btn-large radial" href="{menu.HREF}">
+					<i class="icon-<!-- IF menu.S_ROW_COUNT == 0 -->gift<!-- ELSEIF menu.S_ROW_COUNT == 1 -->home<!-- ELSEIF menu.S_ROW_COUNT == 2 -->arrow-left<!-- ELSE -->search<!-- ENDIF -->"></i></a>
+				</li>
+				<!-- END menu -->
+			</ul>
+		</div>
 		<!-- END nav -->
 	</div>
 	
 	<div class="span6">
-		
-		<form action="{U_SIGNIN}" class="well form-inline login-top" method="post">
+		<!-- IF USER_ID == 1 -->
+		<form action="{U_SIGNIN}" class="form-inline login-top" method="post">
 		  <input type="text" name="address" class="input-small" placeholder="Email">
 		  <input type="password" name="key" class="input-small" placeholder="Password">
-		  <label class="checkbox">
-		    <input type="checkbox"> Recordarme
-		  </label>
 		  <button type="submit" name="submit" class="btn">Continuar</button>
 		</form>
-		
+		<!-- ENDIF -->
 	</div>
 </div>
 
