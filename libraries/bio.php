@@ -228,13 +228,13 @@ class bio {
 		$sql = 'DELETE FROM _sessions
 			WHERE session_id = ?
 				AND session_bio_id = ?';
-		sql_query(sql_filter($sql, $this->session, $this->base['bio_id']));
+		sql_query(sql_filter($sql, $this->session, $this->base->bio_id));
 		
-		if ($this->base['bio_id'] != 1) {
+		if ($this->base->bio_id != 1) {
 			$sql = 'UPDATE _bio
 				SET bio_lastvisit = ?
 				WHERE bio_id = ?';
-			sql_query(sql_filter($sql, $this->base['session_time'], $this->base['bio_id']));
+			sql_query(sql_filter($sql, $this->base->session_time, $this->base->bio_id));
 			
 			$this->base = $this->select(1);
 		}

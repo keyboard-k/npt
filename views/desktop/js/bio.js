@@ -1,19 +1,21 @@
-<!-- INCLUDE js/lib.grid.js -->
-<!-- INCLUDE js/lib.input.js -->
-<!-- INCLUDE js/lib.swf.js -->
-<!-- INCLUDE js/bootstrap.js -->
-<!-- INCLUDE js/bootstrap-alert.js -->
-<!-- INCLUDE js/bootstrap-button.js -->
-<!-- INCLUDE js/bootstrap-carousel.js -->
-<!-- INCLUDE js/bootstrap-collapse.js -->
-<!-- INCLUDE js/bootstrap-dropdown.js -->
-<!-- INCLUDE js/bootstrap-modal.js -->
-<!-- INCLUDE js/bootstrap-popover.js -->
-<!-- INCLUDE js/bootstrap-scrollspy.js -->
-<!-- INCLUDE js/bootstrap-tab.js -->
-<!-- INCLUDE js/bootstrap-tooltip.js -->
-<!-- INCLUDE js/bootstrap-transition.js -->
-<!-- INCLUDE js/bootstrap-typeahead.js -->
+<!-- INCLUDE js/facebox.js -->
+
+//<!-- aINCLUDE js/lib.grid.js -->
+//<!-- aINCLUDE js/lib.input.js -->
+//<!-- aINCLUDE js/lib.swf.js -->
+//<!-- aINCLUDE js/bootstrap.min.js -->
+//<!-- aINCLUDE js/bootstrap-alert.js -->
+//<!-- aINCLUDE js/bootstrap-button.js -->
+//<!-- aINCLUDE js/bootstrap-carousel.js -->
+//<!-- aINCLUDE js/bootstrap-collapse.js -->
+//<!-- aINCLUDE js/bootstrap-dropdown.js -->
+//<!-- aINCLUDE js/bootstrap-modal.js -->
+//<!-- aINCLUDE js/bootstrap-popover.js -->
+//<!-- aINCLUDE js/bootstrap-scrollspy.js -->
+//<!-- aINCLUDE js/bootstrap-tab.js -->
+//<!-- aINCLUDE js/bootstrap-tooltip.js -->
+//<!-- aINCLUDE js/bootstrap-transition.js -->
+//<!-- aINCLUDE js/bootstrap-typeahead.js -->
 
 /*function home_browse_type()
 {

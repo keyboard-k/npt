@@ -1,0 +1,70 @@
+<!-- INCLUDE doc.body.htm -->
+
+<ul class="thumbnails">
+	<li class="span2">
+		<a class="btn" href="{U_NEWS}">
+		<p><img class="colorScale" src="http://www.io.com/media/informate.png" alt="" /></p>
+		<h3>Noticias</h3>
+		</a>
+	</li>
+	
+	<li class="span2">
+		<a class="btn" href="{U_BLOG}">
+		<p><img class="colorScale" src="http://www.io.com/media/board.png" alt="" /></p>
+		<h3>Blog</h3>
+		</a>
+	</li>
+	
+	<li class="span2">
+		<a class="btn" href="{U_BOARD}">
+		<p><img class="colorScale" src="http://www.io.com/media/blog.png" alt="" /></p>
+		<h3>Foros</h3>
+		</a>
+	</li>	
+	
+	<li class="span2">
+		<a class="btn" href="{U_TV}">
+		<p><img class="colorScale" src="http://www.io.com/media/tv.png" alt="" /></p>
+		<h3>Televis&oacute;n</h3>
+		</a>
+	</li>
+	
+	<li class="span2">
+		<a class="btn" href="#">
+		<p><img class="colorScale" src="http://www.io.com/media/galeria.png" alt="" /></p>
+		<h3>Galer&iacute;a de IO</h3>
+		</a>
+	</li>
+	
+	<li class="span2">
+		<a class="btn" href="#">
+		<p><img class="colorScale" src="http://www.io.com/media/eventos.png" alt="" /></p>
+		<h3>Eventos</h3>
+		</a>
+	</li>
+</ul>
+
+<hr>
+
+<footer>
+	<p>&copy; Ideas y Oportunidades 2012</p>
+</footer>
+
+<script type="text/javascript">
+
+$(function() {
+  // fade in the grayscaled images to avoid visual jump
+  $('.greyScale').hide().fadeIn(1000);
+});
+// use window.load to ensure images have been loaded
+$(window).load(function () {
+  $('.greyScale').greyScale({
+    // call the plugin with non-defult fadeTime (default: 400ms)
+    fadeTime: 500,
+    reverse: false
+  });
+});
+
+</script>
+
+<!-- INCLUDE doc.foot.htm -->

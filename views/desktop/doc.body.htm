@@ -10,31 +10,45 @@
 		<ul class="nav-menu">
 			<!-- IF USER_ID != 1 -->
 			<li><a class="btn btn-danger btn-large" href="#">{USER_NAME}</a></li>
+			<li><a class="btn btn-large" href="{U_SIGNOUT}">Salir</a></li>
 			<!-- ENDIF -->
 			<!-- BEGIN menu2 -->
 			<li<!-- BEGIN active --> class="active"<!-- END active -->><a class="btn btn-warning btn-large" href="{menu.HREF}">{menu.NAME}</a></li>
 			<!-- END menu2 -->
 		</ul>
 		
-		<div class="well">
-			<ul class="nav-menu">
-				<!-- BEGIN menu -->
-				<li<!-- IF ! menu.S_ROW_COUNT --> class="nav-menu-left"<!-- ENDIF -->><a class="btn btn-warning btn-large radial" href="{menu.HREF}">
-					<i class="icon-<!-- IF menu.S_ROW_COUNT == 0 -->gift<!-- ELSEIF menu.S_ROW_COUNT == 1 -->home<!-- ELSEIF menu.S_ROW_COUNT == 2 -->arrow-left<!-- ELSE -->search<!-- ENDIF -->"></i></a>
-				</li>
-				<!-- END menu -->
-			</ul>
-		</div>
-		<!-- END nav -->
-	</div>
-	
-	<div class="span6">
 		<!-- IF USER_ID == 1 -->
 		<form action="{U_SIGNIN}" class="form-inline login-top" method="post">
 		  <input type="text" name="address" class="input-small" placeholder="Email">
 		  <input type="password" name="key" class="input-small" placeholder="Password">
 		  <button type="submit" name="submit" class="btn">Continuar</button>
 		</form>
+		<!-- ENDIF -->
+		
+		<span class="clear"></span>
+		
+		<!-- IF USER_ID == 1 -->
+		<div class="nav-menu-guest">
+		<!-- ENDIF -->
+			<ul class="nav-menu">
+				<!-- aBEGIN menu -->
+				<li class="nav-menu-left"><a class="btn btn-warning btn-large radial" href="#"><i class="icon-gift"></i></a></li>
+				<li class=""><a class="btn btn-warning btn-large radial" href="{U_HOME}"><i class="icon-home"></i></a></li>
+				<li class=""><a class="btn btn-warning btn-large radial" href=""><i class="icon-arrow-left"></i></a></li>
+				<li class=""><a class="btn btn-warning btn-large radial" href="#"><i class="icon-search"></i></a></li>
+				<!-- aEND menu -->
+			</ul>
+		<!-- IF USER_ID == 1 -->
+		</div>
+		<!-- ENDIF -->
+		<!-- END nav -->
+	</div>
+	
+	<div class="span6 a_right">
+		<!-- IF USER_ID == 1 -->
+		<div class="signin_top">
+		<p><a class="btn btn-warning btn-large" href="{U_SIGNIN}">Reg&iacute;strate en la Comunidad &raquo;</a></p>
+		</div>
 		<!-- ENDIF -->
 	</div>
 </div>

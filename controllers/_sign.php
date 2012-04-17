@@ -178,11 +178,13 @@ class __sign extends xmd implements i_sign
 	{
 		global $bio;
 		
-		if ($bio->v('auth_member'))
+		//_pre($bio, true);
+		
+		//if ($bio->v('is_member'))
 		{
 			$bio->session_kill();
 			
-			$bio->v('auth_member', false);
+			$bio->v('is_bio', false);
 			$bio->v('session_page', '');
 			$bio->v('session_time', time());
 		}
