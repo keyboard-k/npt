@@ -466,6 +466,21 @@ function array_strpos($haystack, $needle) {
 	return false;
 }
 
+function _array_merge() {
+	$a = func_get_args();
+	$r = array();
+	
+	foreach ($a as $i => $row) {
+		if (!is_array($row)) {
+			$row = (array) $row;
+		}
+		
+		$r += $row;
+	}
+	
+	return $r;
+}
+
 function array_key($a, $k) {
 	return (isset($a[$k])) ? $a[$k] : false;
 }

@@ -18,15 +18,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 if (!defined('XFS')) exit;
 
-class warning
-{
-	public function __construct()
-	{
+class warning {
+	public function __construct() {
 		return;
 	}
 	
-	public function now($message = false)
-	{
+	public function set($v) {
+		global $bio;
+		
+		$lang = strtoupper($v);
+		
+		echo $bio->_lang($lang);
+		exit;
+	}
+	
+	public function now($message = false) {
 		if ($message !== false) {
 			echo '<pre>';
 			var_dump($message);

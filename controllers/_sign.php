@@ -24,8 +24,7 @@ if (!defined('XFS')) exit;
  * if not email and not key then new account
  */
 
-interface i_sign
-{
+interface i_sign {
 	public function home();
 	//public function fb();		// signfb
 	//public function fbn();	// signfbn
@@ -36,39 +35,32 @@ interface i_sign
 	//public function el();		// signel
 }
 
-class __sign extends xmd implements i_sign 
-{
-	public function __construct()
-	{
+class __sign extends xmd implements i_sign {
+	public function __construct() {
 		parent::__construct();
 		
 		$this->auth(false);
 		$this->_m(_array_keys(w('fb up ed in out')));
 	}
 	
-	public function home()
-	{
+	public function home() {
 		_fatal();
 	}
 	
-	public function fb()
-	{
+	public function fb() {
 		return $this->method();
 	}
 	
-	protected function _fb_home()
-	{
+	protected function _fb_home() {
 		return;
 	}
 	
-	public function in()
-	{
+	public function in() {
 		return $this->method();
 	}
 	
-	protected function _in_home()
-	{
-		global $bio, $core;
+	protected function _in_home() {
+		global $bio, $core, $warning;
 		
 		if (!_button()) {
 			return;
@@ -80,13 +72,11 @@ class __sign extends xmd implements i_sign
 			redirect($v->page);
 		}
 		
-		if (empty($v->address))
-		{
-			$this->warning->set('LOGIN_ERROR');
+		if (empty($v->address)) {
+			$warning->set('LOGIN_ERROR');
 		}
 		
-		if (_button('recovery'))
-		{
+		if (_button('recovery')) {
 			$sql = 'SELECT bio_id, bio_name, bio_address, bio_recovery
 				FROM _bio
 				WHERE bio_address = ?
@@ -95,8 +85,7 @@ class __sign extends xmd implements i_sign
 						SELECT ban_userid
 						FROM _banlist
 					)';
-			if ($recovery = sql_fieldrow(sql_filter($sql, $v->address, 1)))
-			{
+			if ($recovery = sql_fieldrow(sql_filter($sql, $v->address, 1))) {
 				$email = array(
 					'USERNAME' => $recovery->bio_name,
 					'U_RECOVERY' => _link('my', array('recovery', 'k' => _rainbow_create($recovery->bio_id))),
@@ -114,9 +103,8 @@ class __sign extends xmd implements i_sign
 			$this->_stop('RECOVERY_LEGEND');
 		}
 
-		if (empty($v->key))
-		{
-			$this->warning->set('login_fail');
+		if (empty($v->key)) {
+			$warning->set('login_fail');
 		}
 
 		$v->register = false;
@@ -155,88 +143,74 @@ class __sign extends xmd implements i_sign
 				sql_query(sql_filter($sql, $_bio->bio_id));
 				
 				sleep(5);
-				$this->warning->set('login_fail');
+				$warning->set('login_fail');
 			}
 		} else {
 			$v->register = true;
 		}
 		
-		if ($v->register)
-		{
+		if ($v->register) {
 			$this->_up_home();
 		}
 		
 		return;
 	}
 	
-	public function out()
-	{
+	public function out() {
 		return $this->method();
 	}
 	
-	protected function _out_home()
-	{
+	protected function _out_home() {
 		global $bio;
 		
-		//_pre($bio, true);
-		
-		//if ($bio->v('is_member'))
-		{
+		//if ($bio->v('is_bio')) {
 			$bio->session_kill();
 			
 			$bio->v('is_bio', false);
 			$bio->v('session_page', '');
 			$bio->v('session_time', time());
-		}
+		//}
 		
 		redirect(_link());
 	}
 	
-	public function up()
-	{
+	public function up() {
 		return $this->method();
 	}
 	
-	protected function _up_home()
-	{
+	protected function _up_home() {
+		global $bio, $warning;
+		
 		$v = $this->__(w('address'));
 		
-		if (_button())
-		{
-			$v = array_merge($v, $this->__(array_merge(w('alias nickname ref_in'), _array_keys(w('gender country birth_day birth_month birth_year aup ref'), 0))));
+		if (_button()) {
+			$v = _array_merge($v, $this->__(array_merge(w('alias nickname ref_in'), _array_keys(w('gender country birth_day birth_month birth_year aup ref'), 0))));
 			
-			if (empty($v->nickname) && !empty($v->address) && !is_email($v->address))
-			{
+			if (empty($v->nickname) && !empty($v->address) && !is_email($v->address)) {
 				$v->nickname = $v->address;
 			}
 			
-			if (empty($v->nickname))
-			{
+			if (empty($v->nickname)) {
 				$warning->set('empty_username');
 			}
 			
-			if (bio_length($v-nickname))
-			{
+			if (bio_length($v-nickname)) {
 				$warning->set('len_alias');
 			}
 			
-			if (!$v->alias = _low($v->nickname))
-			{
+			if (!$v->alias = _low($v->nickname)) {
 				$warning->set('bad_alias');
 			}
 			
-			if ($this->alias_exists($v->alias))
-			{
+			if ($this->alias_exists($v->alias)) {
 				$warning->set('record_alias');
 			}
 			
-			if (!$this->country_exists($v->country))
-			{
+			if (!$this->country_exists($v->country)) {
 				$warning->set('bad_country');
 			}
 			
-			if (!$v->birth_day || !$v->birth_month || !$v->birth_year)
-			{
+			if (!$v->birth_day || !$v->birth_month || !$v->birth_year) {
 				$this->_error('BAD_BIRTH');
 			}
 			
@@ -250,24 +224,31 @@ class __sign extends xmd implements i_sign
 				'country' => $v->country,
 				'birth' => $v->birth
 			);
-			sql_put('_bio', prefix('user', $sql_insert));
+			sql_put('_bio', prefix('bio', $sql_insert));
 		}
 		
 		// GeoIP
-		require_once(XFS.XCOR . 'geoip.php');
+		if (!@function_exists('geoip_country_code_by_name')) {
+			require_once(XFS.XCOR . 'geoip.php');
+		}
 		
-		$gi = geoip_open(XFS.XCOR . 'store/geoip.dat', GEOIP_STANDARD);
-		$geoip_code = strtolower(geoip_country_code_by_addr($gi, $bio->ip));
+		//$gi = geoip_open(XFS.XCOR . 'store/geoip.dat', GEOIP_STANDARD);
+		
+		$geoip_code = '';
+		if ($bio->v('ip') != '127.0.0.1') {
+			$geoip_code = @geoip_country_code_by_name($bio->v('ip'));
+		}
+		
+		_pre($geoip_code, true);
 		
 		$sql = 'SELECT *
 			FROM _countries
 			ORDER BY country_name';
-		$countries = _rowset($sql);
+		$countries = sql_rowset($sql);
 		
 		$v2->country = ($v2->country) ? $v2->country : ((isset($country_codes[$geoip_code])) ? $country_codes[$geoip_code] : $country_codes['gt']);
 		
-		foreach ($countries as $i => $row)
-		{
+		foreach ($countries as $i => $row) {
 			if (!$i) _style('countries');
 			
 			_style('countries.row', array(
@@ -280,19 +261,16 @@ class __sign extends xmd implements i_sign
 		return;
 	}
 	
-	public function ed()
-	{
+	public function ed() {
 		return $this->method();
 	}
 	
-	protected function _ed_home()
-	{
+	protected function _ed_home() {
 		global $bio;
 		
 		$v = $this->__(w('k'));
 		
-		if (empty($v->k) || (!$rainbow = _rainbow_check($v->k)))
-		{
+		if (empty($v->k) || (!$rainbow = _rainbow_check($v->k))) {
 			_fatal();
 		}
 		
@@ -302,13 +280,11 @@ class __sign extends xmd implements i_sign
 		
 		_rainbow_remove($rainbow->rainbow_code);
 		
-		if (!$bio->v('auth_member'))
-		{
+		if (!$bio->v('auth_member')) {
 			$bio->session_create($rainbow->rainbow_uid);
 		}
 		
-		redirect(_link('-', $bio->v('bio_alias')));
-		return;
+		return redirect(_link('-', $bio->v('bio_alias')));
 	}
 }
 

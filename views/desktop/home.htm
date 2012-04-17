@@ -2,9 +2,9 @@
 
 <div class="row">
 	<div class="span6 round">
-		<div class="hero-unit2">
+		<div class="hero-unit2 flashObject">
 			
-			<iframe width="560" height="315" src="http://www.youtube.com/embed/3HFESzuTp3o" frameborder="0" allowfullscreen></iframe>
+			<iframe width="560" height="315" src="http://www.youtube.com/embed/3HFESzuTp3o?wmode=opaque" frameborder="0" allowfullscreen></iframe>
 			
 		</div>
 	</div>
@@ -27,35 +27,35 @@
 	</li>
 	
 	<li class="span2">
-		<a class="btn" href="#">
+		<a class="btn" href="#soon" rel="facebox">
 		<p><img class="greyScale" src="http://www.io.com/media/integrate.png" alt="" /></p>
 		<h3>Integrate</h3>
 		</a>
 	</li>
 	
 	<li class="span2">
-		<a class="btn" href="#">
+		<a class="btn" href="#soon" rel="facebox">
 		<p><img class="greyScale" src="http://www.io.com/media/asesorate2.png" alt="" /></p>
 		<h3>Asesorate</h3>
 		</a>
 	</li>	
 	
 	<li class="span2">
-		<a class="btn" href="#">
+		<a class="btn" href="#soon" rel="facebox">
 		<p><img class="greyScale" src="http://www.io.com/media/education.png" alt="" /></p>
 		<h3>Educate</h3>
 		</a>
 	</li>
 	
 	<li class="span2">
-		<a class="btn" href="#" rel="facebox">
+		<a class="btn" href="#soon" rel="facebox">
 		<p><img class="greyScale" src="http://www.io.com/media/empleate.png" alt="" /></p>
 		<h3>Empleate</h3>
 		</a>
 	</li>
 	
 	<li class="span2">
-		<a class="btn" href="#">
+		<a class="btn" href="#soon" rel="facebox">
 		<p><img class="greyScale" src="http://www.io.com/media/ioplus.png" alt="" /></p>
 		<h3>Oportunideas</h3>
 		</a>
@@ -68,14 +68,18 @@
 	<p>&copy; Ideas y Oportunidades 2012</p>
 </footer>
 
-<div id="box">here</div>
+<div id="soon" class="soon" style="display:none;">
+	<div class="centered"><button class="btn btn-danger btn-large"><i class="icon-star"></i> &iexcl;Pr&oacute;ximamente!</button><br /><br /><h3>Encuentra m&aacute;s informaci&oacute;n en esta secci&oacute;n.</h3></div>
+</div>
 
 <script type="text/javascript">
 
 $(function() {
 	$('.greyScale').css({ opacity: 0.4 });
 	
-	$('.greyScale').facebox({ div: '#box' });
+	$('a[rel*=facebox]').facebox() 
+	
+	//$('.greyScale').facebox('here');
 	
   // fade in the grayscaled images to avoid visual jump
   //$('.greyScale').hide().fadeIn(1000);

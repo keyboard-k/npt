@@ -18,13 +18,30 @@ body {
 	/*border: 1px solid #ddd;*/
 	/*border-radius: 50px;*/
 }
+.flashObject {
+	position: relative;
+	z-index: 6;
+}
+.soon {
+	z-index: 8;
+}
 
 .marker {
 	background: #468847;
 }
+.loader {
+	background: url(../DOMAIN/loading.gif) no-repeat;
+	width: 32px;
+	height: 32px;
+	display: block;
+	margin: 7px auto;
+}
 
 .centered {
 	text-align: center;
+}
+.fcentered {
+	margin: 0 auto;
 }
 
 .ttv a {

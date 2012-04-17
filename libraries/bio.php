@@ -417,6 +417,9 @@ class bio {
 		$response = false;
 		
 		switch ($mode) {
+			case 'ip':
+				$response = $this->ip;
+				break;
 			case 'is':
 				$bio_id = $this->v('bio_id');
 				
