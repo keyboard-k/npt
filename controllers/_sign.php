@@ -211,7 +211,7 @@ class __sign extends xmd implements i_sign {
 			}
 			
 			if (!$v->birth_day || !$v->birth_month || !$v->birth_year) {
-				$this->_error('BAD_BIRTH');
+				$warning->set('bad_birth');
 			}
 			
 			$v->birth = _timestamp($v->birth_month, $v->birth_day, $v->birth_year);
