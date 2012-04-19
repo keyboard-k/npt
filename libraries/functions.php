@@ -478,7 +478,7 @@ function _array_merge() {
 		$r += $row;
 	}
 	
-	return $r;
+	return (object) $r;
 }
 
 function array_key($a, $k) {

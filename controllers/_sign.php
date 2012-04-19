@@ -183,22 +183,18 @@ class __sign extends xmd implements i_sign {
 		
 		$v = $this->__(w('address'));
 		
-		if (_button()) {
-			$v = _array_merge($v, $this->__(array_merge(w('alias nickname ref_in'), _array_keys(w('gender country birth_day birth_month birth_year aup ref'), 0))));
+		if (!empty($v->address)) {
+			$v = _array_merge($v, $this->__(array_merge(w('password firstname lastname country status'), _array_keys(w('gender birth_day birth_month birth_year'), 0))));
 			
-			if (empty($v->nickname) && !empty($v->address) && !is_email($v->address)) {
-				$v->nickname = $v->address;
+			if (empty($v->address)) {
+				$warning->set('empty_address');
+			}
+
+			if (!email_format($v->address)) {
+				$warning->set('bad_address');
 			}
 			
-			if (empty($v->nickname)) {
-				$warning->set('empty_username');
-			}
-			
-			if (bio_length($v-nickname)) {
-				$warning->set('len_alias');
-			}
-			
-			if (!$v->alias = _low($v->nickname)) {
+			if (!$v->alias = _low($v->firstname . $v->lastname)) {
 				$warning->set('bad_alias');
 			}
 			
@@ -215,6 +211,7 @@ class __sign extends xmd implements i_sign {
 			}
 			
 			$v->birth = _timestamp($v->birth_month, $v->birth_day, $v->birth_year);
+			$v->name = trim($v->firstname) . ' ' . trim($v->lastname);
 			
 			$sql_insert = array(
 				'alias' => $v->alias,
@@ -227,26 +224,27 @@ class __sign extends xmd implements i_sign {
 			sql_put('_bio', prefix('bio', $sql_insert));
 		}
 		
-		// GeoIP
-		if (!@function_exists('geoip_country_code_by_name')) {
-			require_once(XFS.XCOR . 'geoip.php');
-		}
-		
 		//$gi = geoip_open(XFS.XCOR . 'store/geoip.dat', GEOIP_STANDARD);
 		
 		$geoip_code = '';
 		if ($bio->v('ip') != '127.0.0.1') {
+			// GeoIP
+			if (!@function_exists('geoip_country_code_by_name')) {
+				require_once(XFS.XCOR . 'geoip.php');
+			}
+			
 			$geoip_code = @geoip_country_code_by_name($bio->v('ip'));
 		}
 		
-		_pre($geoip_code, true);
+		//_pre($geoip_code, true);
 		
+		/*
 		$sql = 'SELECT *
 			FROM _countries
 			ORDER BY country_name';
 		$countries = sql_rowset($sql);
 		
-		$v2->country = ($v2->country) ? $v2->country : ((isset($country_codes[$geoip_code])) ? $country_codes[$geoip_code] : $country_codes['gt']);
+		$v->country = ($v->country) ? $v->country : ((isset($country_codes[$geoip_code])) ? $country_codes[$geoip_code] : $country_codes['gt']);
 		
 		foreach ($countries as $i => $row) {
 			if (!$i) _style('countries');
@@ -257,6 +255,8 @@ class __sign extends xmd implements i_sign {
 				'V_SEL' => 0)
 			);
 		}
+		 * 
+		 */
 		
 		return;
 	}
