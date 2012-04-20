@@ -181,13 +181,17 @@ class __sign extends xmd implements i_sign {
 	protected function _up_home() {
 		global $bio, $warning;
 		
-		$v = $this->__(w('address'));
+		$v = $this->__(w('send address'));
 		
-		if (!empty($v->address)) {
+		if (!empty($v->send)) {
 			$v = _array_merge($v, $this->__(array_merge(w('password firstname lastname country status'), _array_keys(w('gender birth_day birth_month birth_year'), 0))));
 			
 			if (empty($v->address)) {
 				$warning->set('empty_address');
+			}
+			
+			if (empty($v->password)) {
+				$warning->set('empty_password');
 			}
 
 			if (!email_format($v->address)) {
@@ -202,7 +206,7 @@ class __sign extends xmd implements i_sign {
 				$warning->set('record_alias');
 			}
 			
-			if (!$this->country_exists($v->country)) {
+			if (!$v->country = $this->country_exists($v->country)) {
 				$warning->set('bad_country');
 			}
 			
@@ -214,14 +218,42 @@ class __sign extends xmd implements i_sign {
 			$v->name = trim($v->firstname) . ' ' . trim($v->lastname);
 			
 			$sql_insert = array(
+				'type' => 0,
+				'level' => 0,
+				'active' => 1,
 				'alias' => $v->alias,
-				'nickname' => $v->nickname,
+				'name' => $v->firstname . ' ' . $v->lastname,
+				'first' => $v->firstname,
+				'last' => $v->lastname,
+				'key' => HashPassword($v->password),
 				'address' => $v->address,
 				'gender' => $v->gender,
+				'birth' => $v->birth,
+				'birthlast' => 0,
+				'regip' => $bio->v('ip'),
+				'regdate' => time(),
+				'session_time' => time(),
+				'lastpage' => '',
+				'timezone' => -6,
+				'dst' => 0,
+				'dateformat' => 'd M Y H:i',
+				'lang' => 'sp',
 				'country' => $v->country,
-				'birth' => $v->birth
+				'avatar' => '',
+				'actkey' => '',
+				'recovery' => 0,
+				'fails' => 0
 			);
-			sql_put('_bio', prefix('bio', $sql_insert));
+			$bio->id = sql_put('_bio', prefix('bio', $sql_insert));
+			
+			$sql_insert = array(
+				'bio' => $bio->id,
+				'name' => $v->address,
+				'primary' => 1
+			);
+			sql_put('_bio_address', prefix('address', $sql_insert));
+			
+			_pre('OK', true);
 		}
 		
 		//$gi = geoip_open(XFS.XCOR . 'store/geoip.dat', GEOIP_STANDARD);
@@ -234,6 +266,30 @@ class __sign extends xmd implements i_sign {
 			}
 			
 			$geoip_code = @geoip_country_code_by_name($bio->v('ip'));
+		}
+		
+		for ($i = 1; $i < 32; $i++) {
+			if ($i == 1) _style('birth_day');
+			
+			_style('birth_day.row', array(
+				'DAY' => $i)
+			);
+		}
+		
+		for ($i = 1; $i < 13; $i++) {
+			if ($i == 1) _style('birth_month');
+			
+			_style('birth_month.row', array(
+				'MONTH' => $i)
+			);
+		}
+		
+		for ($i = date('Y'); $i > 1900; $i--) {
+			if ($i == date('Y')) _style('birth_year');
+			
+			_style('birth_year.row', array(
+				'YEAR' => $i)
+			);
 		}
 		
 		//_pre($geoip_code, true);

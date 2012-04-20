@@ -35,6 +35,16 @@ $lang = array(
 	'USERNAME' => 'Usuario',
 	'PASSWORD' => 'Contrase&ntilde;a',
 	
+	'EMPTY_ADDRESS' => 'Debes completar tu correo electr&oacute;nico.',
+	'EMPTY_PASSWORD' => 'Debes completar tu contrase&ntilde;a.',
+	'BAD_ADDRESS' => 'Tu correo electr&oacute;nico es inv&aacute;lido.',
+	'BAD_ALIAS' => 'Tu nombre o apellido son inv&aacute;lidos.',
+	'RECORD_ALIAS' => 'El identificador de usuario ya existe.',
+	'RECORD_ADDRESS' => 'El correo electr&oacute;nico ya esta registrado en la comunidad.',
+	'BAD_COUNTRY' => 'La selecci&ocute;n de pa&iacute;s es inv&aacute;lida.',
+	'BAD_BIRTH' => 'El formato de cumplea&ntilde;os es inv&aacute;lido.',
+	
+	
 	'SIGNIN' => 'Entrar',
 	'SIGNOUT' => 'Cerrar Sesi&oacute;n',
 	'SIGN_EXIT' => 'Ha cerrado su sesi&oacute;n del sistema correctamente.',

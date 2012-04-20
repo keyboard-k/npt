@@ -29,9 +29,10 @@ class bio {
 	protected $ip;
 	protected $bio;
 	protected $session;
-	protected $date_format;
-	protected $timezone;
-	protected $dst;
+	
+	public $date_format;
+	public $timezone;
+	public $dst;
 	
 	public function __construct() {
 		$this->queue = new stdClass;

@@ -44,18 +44,19 @@ abstract class project
 	
 	protected function alias_exists($alias)
 	{
-		$sql = 'SELECT alias_id
-			FROM _alias
-			WHERE alias_name = ?';
+		$sql = 'SELECT bio_id
+			FROM _bio
+			WHERE bio_name = ?';
 		return sql_fieldrow(sql_filter($sql, $alias));
 	}
 	
-	protected function country_exists($country)
-	{
+	protected function country_exists($country) {
+		$country_field = (is_numeric($country)) ? 'id' : 'name';
+		
 		$sql = 'SELECT country_id
 			FROM _countries
-			WHERE country_id = ?';
-		return sql_fieldrow(sql_filter($sql, $country));
+			WHERE country_?? = ?';
+		return sql_field(sql_filter($sql, $country_field, $country), 'country_id', 0);
 	}
 	
 	protected function _bio_publish($address, $key)

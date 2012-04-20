@@ -66,23 +66,29 @@
 			</div>
 			
 			<div class="control-group">
-				<label class="control-label" for="birthday_day">Fecha de nacimiento</label>
+				<label class="control-label" for="birth_day">Fecha de nacimiento</label>
 				<div class="controls">
-					<select class="span1" name="birthday_day" id="birthday_day">
-						<option>1</option>
-						<option>2</option>
-						<option>3</option>
+					<!-- BEGIN birth_day -->
+					<select class="span1" name="birth_day" id="birth_day">
+						<!-- BEGIN row -->
+						<option value="{row.DAY}">{row.DAY}</option>
+						<!-- END row -->
 					</select>
-					<select class="span1" name="birthday_month" id="birthday_month">
-						<option>1</option>
-						<option>2</option>
-						<option>3</option>
+					<!-- END birth_day -->
+					<!-- BEGIN birth_month -->
+					<select class="span1" name="birth_month" id="birth_month">
+						<!-- BEGIN row -->
+						<option value="{row.MONTH}">{row.MONTH}</option>
+						<!-- END row -->
 					</select>
-					<select class="span1" name="birthday_year" id="birthday_year">
-						<option>1</option>
-						<option>2</option>
-						<option>3</option>
+					<!-- END birth_month -->
+					<!-- BEGIN birth_year -->
+					<select class="span1" name="birth_year" id="birth_year">
+						<!-- BEGIN row -->
+						<option value="{row.YEAR}">{row.YEAR}</option>
+						<!-- END row -->
 					</select>
+					<!-- END birth_year -->
 				</div>
 			</div>
 			
@@ -113,8 +119,9 @@
 			</div>
 			
 			<div class="centered">
+				<input class="btn btn-danger" type="hidden" name="send" value="1" />
 				<input class="btn btn-danger" type="submit" name="submit" value="{L_CONFIRM}" />
-				<div class="loader"></div>
+				<div class="loader" id="loader"></div>
 			</div>
 		</fieldset>
 	</form>
@@ -125,15 +132,8 @@
 </div>
 
 <script language="javascript">
-$(document).ready(function() {
-	// Esta primera parte crea un loader no es necesaria
-	$().ajaxStart(function() {
-		$('.loader').show();
-		$('.loader').hide();
-	}).ajaxStop(function() {
-		$('.loader').hide();
-		$('.loader').fadeIn('slow');
-	});
+$(function() {
+	$('#loader').hide();
 	
 	$('#signup').submit(function() {
 		$.ajax({
@@ -141,12 +141,19 @@ $(document).ready(function() {
 			url: $(this).attr('action'),
 			data: $(this).serialize(),
 			success: function(data) {
-				$('#result').html(data);
+				jQuery.facebox(data);
+				//$('#result').html(data);
 			}
 		});
 		
 		return false;
-	}); 
+	}).ajaxStart(function() {
+		$('#loader').show();
+		//$('#loader').hide();
+	}).ajaxStop(function() {
+		$('#loader').hide();
+		//$('#loader').fadeIn('slow');
+	});
 })  
 </script>
 
