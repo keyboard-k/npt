@@ -86,7 +86,7 @@ class __events extends xmd implements i_events
 	
 	public function home()
 	{
-		global $core;
+		global $bio, $core;
 		
 		// all today tomorrow week future
 		
@@ -97,10 +97,10 @@ class __events extends xmd implements i_events
 			$sql = 'SELECT type_id, type_alias
 				FROM _events_type
 				ORDER BY type_order';
-			$event_type = $core->cache->store('events_type', _rowset($sql, 'type_alias', 'type_id'));
+			$event_type = $core->cache->store('events_type', sql_rowset($sql, 'type_alias', 'type_id'));
 		}
 		
-		if ($v['f'] && !isset($event_type[$v['f']]))
+		if ($v->f && !isset($event_type->$v['f']))
 		{
 			_fatal();
 		}
@@ -108,19 +108,19 @@ class __events extends xmd implements i_events
 		$sql = 'SELECT *
 			FROM _events
 			ORDER BY event_date ASC';
-		$list = _rowset($sql);
+		$list = sql_rowset($sql);
 		
 		$events = w();
 		foreach ($list as $row)
 		{
-			$type = $this->_when($row['event_date'], $row['event_images']);
+			$type = $this->_when($row->event_date, $row->event_images);
 			$events[$type][] = $row;
 		}
 		unset($list);
 		
-		if ($v['f'])
+		if ($v->f)
 		{
-			$events = array($v['f'] => $events[$v['f']]);
+			$events = array($v->f => $events->$v['f']);
 		}
 		
 		foreach ($events as $k => $z)
@@ -133,31 +133,38 @@ class __events extends xmd implements i_events
 			}
 		}
 		
+		//_pre($events['gallery'], true);
+		
 		// Gallery
 		if (isset($events['gallery']))
 		{
 			@krsort($events['gallery']);
 			
-			if (!$events['gallery'] = array_slice($events['gallery'], $v['g'], $core->v('gallery_pages')))
+			if (!$events['gallery'] = array_slice((array) $events['gallery'], $v->p, $core->v('gallery_pages')))
 			{
 				_fatal();
+			}
+			
+			$event_ids = w();
+			foreach ($events['gallery'] as $row) {
+				$event_ids[] = $row->event_id;
 			}
 			
 			$sql = 'SELECT *
 				FROM _events_images
 				WHERE event_id IN (??)
 				ORDER BY RAND()';
-			$i_random = _rowset(sql_filter($sql, _implode(',', array_subkey($events['gallery'], 'event_id'))), 'event_id', 'image');
+			$i_random = sql_rowset(sql_filter($sql, _implode(',', $event_ids)), 'event_id', 'image');
 			
 			foreach ($events['gallery'] as $i => $row)
 			{
-				if (!$i) _style('gallery', _pagination(_link($this->m()), 'g:%d', count($events['gallery']), $core->v('gallery_pages'), $v['g']));
+				if (!$i) _style('gallery', _pagination(_link($this->m()), 'p:%d', count((array) $events['gallery']), $core->v('gallery_pages'), $v->p));
 				
 				_style('gallery.row', array(
-					'URL' => _link($this->m(), $row['event_alias']),
-					'TITLE' => $row['event_subject'],
-					'IMAGE' => _lib(w(LIB_EVENT . ' thumbnail ' . $row['event_id']), $i_random[$row['event_id']], 'jpg'),
-					'TIME' => _format_date($row['event_date'], _lang('DATE_FORMAT')))
+					'URL' => _link($this->m(), $row->event_alias),
+					'TITLE' => $row->event_subject,
+					//'IMAGE' => _lib(w(LIB_EVENT . ' thumbnail ' . $row->event_id), $i_random->{$row->event_id}, 'jpg'),
+					'TIME' => _format_date($row->event_date, $bio->_lang('DATE_FORMAT')))
 				);
 			}
 			
@@ -186,7 +193,7 @@ class __events extends xmd implements i_events
 					FROM _events_attend
 					WHERE attend_event IN (??)
 						AND attend_uid = ?';
-				$attend_event = _rowset(sql_filter($sql, _implode(',', $attend_id), $bio->v('bio_id')), 'attend_event', 'attend_option');
+				$attend_event = sql_rowset(sql_filter($sql, _implode(',', $attend_id), $bio->v('bio_id')), 'attend_event', 'attend_option');
 			}
 			
 			$sql = 'SELECT *, COUNT(a.attend_uid) AS attendees
@@ -194,7 +201,7 @@ class __events extends xmd implements i_events
 				WHERE a.attend_event IN (??)
 					AND a.attend_option = t.type_id
 				ORDER BY type_order';
-			$types = _rowset(sql_filter($sql, _implode(',', $attend_id)), 'attend_event', false, true);
+			$types = sql_rowset(sql_filter($sql, _implode(',', $attend_id)), 'attend_event', false, true);
 		}
 		
 		$i = 0;
@@ -224,7 +231,7 @@ class __events extends xmd implements i_events
 			$i++;
 		}
 		
-		$this->monetize();
+		//$this->monetize();
 		
 		_style('suggest', array(
 			'URL' => _link('suggest', 'event'))
@@ -254,7 +261,7 @@ class __events extends xmd implements i_events
 		$sql = 'SELECT *
 			FROM _events
 			WHERE event_?? = ?';
-		if (!$event = _fieldrow(sql_filter($sql, $v['field'], $v['alias'])))
+		if (!$event = sql_fieldrow(sql_filter($sql, $v['field'], $v['alias'])))
 		{
 			_fatal();
 		}
@@ -270,7 +277,7 @@ class __events extends xmd implements i_events
 			WHERE image_event = ?
 			ORDER BY image ASC
 			LIMIT ??, ??';
-		$event_images = _rowset(sql_filter($sql, $event['event_id'], $v['t'], $core->v('thumbs_per_page')));
+		$event_images = sql_rowset(sql_filter($sql, $event['event_id'], $v['t'], $core->v('thumbs_per_page')));
 		
 		foreach ($event_images as $i => $row)
 		{
@@ -305,7 +312,7 @@ class __events extends xmd implements i_events
 				$sql = 'SELECT type_id, type_name
 					FROM _events_star_type
 					ORDER BY type_order';
-				$types = $core->cache->store('star_type', _rowset($sql, 'type_id', 'type_name'));
+				$types = $core->cache->store('star_type', sql_rowset($sql, 'type_id', 'type_name'));
 			}
 			
 			$i = 0;
@@ -329,14 +336,14 @@ class __events extends xmd implements i_events
 					AND r.review_uid = b.bio_id
 				ORDER BY r.review_avg
 				LIMIT 0, 5';
-			$reviews = _rowset(sql_filter($sql, $event['event_id']), 'review_id');
+			$reviews = sql_rowset(sql_filter($sql, $event['event_id']), 'review_id');
 			
 			$sql = 'SELECT *
 				FROM _events_reviews_rate r, _events_reviews_fields f
 				WHERE r.rate_review IN (??)
 					AND r.rate_field = f.field_id
 				ORDER BY f.field_order';
-			$reviews_rate = _rowset(sql_filter($sql, _implode(',', array_keys($reviews))), 'rate_review', false, true);
+			$reviews_rate = sql_rowset(sql_filter($sql, _implode(',', array_keys($reviews))), 'rate_review', false, true);
 			
 			$i = 0;
 			foreach ($reviews as $row)
@@ -371,7 +378,7 @@ class __events extends xmd implements i_events
 				AND a.attend_type = at.type_id
 				AND a.attend_uid = b.bio_id
 			ORDER BY a.attend_time';
-		$attend = _rowset(sql_filter($sql, $event['event_id']), 'type_id', false, true);
+		$attend = sql_rowset(sql_filter($sql, $event['event_id']), 'type_id', false, true);
 		
 		$i = 0;
 		foreach ($attend as $type_name => $rows)
@@ -409,7 +416,7 @@ class __events extends xmd implements i_events
 						AND c.comment_bio = b.bio_id
 					ORDER BY c.comment_time DESC
 					LIMIT ??, ??';
-				$comments = _rowset(sql_filter($sql, $event['event_id'], 1, $v['p'], $core->v('events_comments')));
+				$comments = sql_rowset(sql_filter($sql, $event['event_id'], 1, $v['p'], $core->v('events_comments')));
 				
 				foreach ($comments as $i => $row)
 				{
@@ -489,7 +496,7 @@ class __events extends xmd implements i_events
 		$sql = 'SELECT type_id
 			FROM _events_star_type
 			WHERE type_id = ?';
-		if (!_fieldrow(sql_filter($sql, $v['type'])))
+		if (!sql_fieldrow(sql_filter($sql, $v['type'])))
 		{
 			_fatal();
 		}
@@ -500,7 +507,7 @@ class __events extends xmd implements i_events
 			FROM _events_star
 			WHERE star_event = ?
 				AND star_uid = ?';
-		if (!$star = _fieldrow(sql_filter($sql, $v['event'], $bio->v('bio_id'))))
+		if (!$star = sql_fieldrow(sql_filter($sql, $v['event'], $bio->v('bio_id'))))
 		{
 			$sql_insert = array(
 				'star_type' => $v['type'],
@@ -539,7 +546,7 @@ class __events extends xmd implements i_events
 		$sql = 'SELECT event_id
 			FROM _events
 			WHERE event_id = ?';
-		if (!_fieldrow($sql, $v['event']))
+		if (!sql_fieldrow($sql, $v['event']))
 		{
 			_fatal();
 		}
@@ -547,7 +554,7 @@ class __events extends xmd implements i_events
 		$sql = 'SELECT type_id
 			FROM _events_attend_type
 			WHERE type_id = ?';
-		if (!_fieldrow(sql_filter($sql, $v['option'])))
+		if (!sql_fieldrow(sql_filter($sql, $v['option'])))
 		{
 			_fatal();
 		}
@@ -556,7 +563,7 @@ class __events extends xmd implements i_events
 			FROM _events_attend
 			WHERE attend_event = ?
 				AND attend_uid = ?';
-		if ($attend_id = _field(sql_filter($sql, $v['event'], $bio->v('bio_id')), 'attend_id', 0))
+		if ($attend_id = sql_field(sql_filter($sql, $v['event'], $bio->v('bio_id')), 'attend_id', 0))
 		{
 			$sql = 'UPDATE _events SET attend_option = ?
 				WHERE attend_id = ?';

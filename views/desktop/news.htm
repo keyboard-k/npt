@@ -9,6 +9,40 @@
 <!-- IF X1 == 'home' -->
 <div class="row">
 	<div class="span9">
+		<br />
+		<div id="myCarousel" class="carousel slide">
+			<div class="carousel-inner">
+				<div class="item active">
+					<img src="http://twitter.github.com/bootstrap/assets/img/bootstrap-mdo-sfmoma-01.jpg" alt="">
+					<div class="carousel-caption">
+						<h4>Que tanta diferencia marca la innovacion?</h4>
+						<p>En el último ranking mundial realizado por la revista Forbes, se publicó una lista de las que se consideraban las 100 empresas más innovadoras en todos los campos.</p>
+					</div>
+				</div>
+				<div class="item">
+					<img src="http://twitter.github.com/bootstrap/assets/img/bootstrap-mdo-sfmoma-02.jpg" alt="">
+					<div class="carousel-caption">
+						<h4>Un producto sin marca no se vende</h4>
+						<p>Seguramente si les preguntara si ya han creado y desarrollado su marca personal me contestarían que no. Sin embargo, debido a la gran interacción que tenemos actualmente con las redes sociales, automáticamente la estamos creando y diariamente la estamos desarrollando sin ser consientes.</p>
+					</div>
+				</div>
+				<div class="item">
+					<img src="http://twitter.github.com/bootstrap/assets/img/bootstrap-mdo-sfmoma-03.jpg" alt="">
+					<div class="carousel-caption">
+						<h4>Que el futuro no te alcance</h4>
+						<p>En un panorama como el actual, donde los precios del petróleo y la creciente demanda empujan a buscar cada vez mayores reservas e innovaciones en la forma de explotar, se ha vuelto aún más importante pensar en el largo plazo.</p>
+					</div>
+				</div>
+			</div>
+			
+			<a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+			<a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
+		</div>
+		
+		<script type="text/javascript">
+		$('#myCarousel').carousel();
+		</script>
+          
 		<!-- BEGIN news -->
 		<!-- IF news.NUMS != '' -->
 		<div class="pagination">{news.NUMS}</div>

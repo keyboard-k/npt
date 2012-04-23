@@ -111,7 +111,7 @@ class core {
 		global $bio, $core, $file, $warning;
 		
 		if (!$rewrite = enable_rewrite()) {
-			$warning->now('Enable mod_rewrite on Apache.');
+			//$warning->now('Enable mod_rewrite on Apache.');
 		}
 		
 		require_once(XFS.XCOR . 'modules.php');

@@ -1,5 +1,12 @@
 <!-- INCLUDE doc.body.htm -->
 
+<!-- IF X1 == 'en' -->
+<div class="alert alert-warning">
+	<h1>&iexcl;Felicidades!</h1>
+	<p>&nbsp;</p>
+	<p>Muchas gracias por unirte a nuestra comunidad, ahora puedes iniciar sesi&oacute;n con tu correo electr&oacute;nico y contrase&ntilde;a.</p>
+</div>
+<!-- ELSE -->
 <!-- BEGIN error -->
 <div class="red a-center">{error.MESSAGE}</div>
 <!-- END error -->
@@ -141,6 +148,9 @@ $(function() {
 			url: $(this).attr('action'),
 			data: $(this).serialize(),
 			success: function(data) {
+				if (data == 'OK') {
+					return _.go('{U_SIGNEN}');
+				}
 				jQuery.facebox(data);
 				//$('#result').html(data);
 			}
@@ -156,5 +166,6 @@ $(function() {
 	});
 })  
 </script>
+<!-- ENDIF -->
 
 <!-- INCLUDE doc.foot.htm -->

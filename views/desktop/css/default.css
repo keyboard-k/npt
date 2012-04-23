@@ -91,7 +91,7 @@ body {
 }
 .greyScale, .colorScale {
 	width: 175px;
-	height: 125px;
+	height: 110px;
 }
 .a_right {
 	text-align: right;
@@ -109,7 +109,60 @@ body {
 	color: #fff !important;
 }
 
-.clear {
+.clear, .clearfix {
 	clear: both;
 	display: block;
+}
+
+.image_carousel {
+	padding: 15px 0 15px 40px;
+	position: relative;
+}
+.image_carousel img {
+	border: 1px solid #ccc;
+	background-color: white;
+	padding: 9px;
+	margin: 7px;
+	display: block;
+	float: left;
+}
+a.prev, a.next {
+	background: url(../DOMAIN/miscellaneous_sprite.png) no-repeat transparent;
+	width: 45px;
+	height: 50px;
+	display: block;
+	position: absolute;
+	top: 85px;
+}
+a.prev {			left: -22px;
+					background-position: 0 0; }
+a.prev:hover {		background-position: 0 -50px; }
+a.prev.disabled {	background-position: 0 -100px !important;  }
+a.next {			right: -22px;
+					background-position: -50px 0; }
+a.next:hover {		background-position: -50px -50px; }
+a.next.disabled {	background-position: -50px -100px !important;  }
+a.prev.disabled, a.next.disabled {
+	cursor: default;
+}
+
+a.prev span, a.next span {
+	display: none;
+}
+.pagination2 {
+	text-align: center;
+}
+.pagination2 a {
+	background: url(../DOMAIN/miscellaneous_sprite.png) 0 -300px no-repeat transparent;
+	width: 15px;
+	height: 15px;
+	margin: 0 5px 0 0;
+	display: inline-block;
+}
+.pagination2 a.selected {
+	background-position: -25px -300px;
+	cursor: default;
+}
+.pagination2 a span {
+	display: none;
 }

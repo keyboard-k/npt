@@ -3,9 +3,7 @@
 <div class="row">
 	<div class="span6 round">
 		<div class="hero-unit2 flashObject">
-			
-			<iframe width="560" height="315" src="http://www.youtube.com/embed/3HFESzuTp3o?wmode=opaque" frameborder="0" allowfullscreen></iframe>
-			
+			<iframe width="560" height="315" src="http://www.youtube.com/embed/EkronbywHcg?wmode=opaque" frameborder="0" allowfullscreen></iframe>
 		</div>
 	</div>
 	
@@ -21,43 +19,43 @@
 <ul class="thumbnails">
 	<li class="span2">
 		<a class="btn" href="{U_INFORMATE}">
-		<p><img class="colorScale" src="http://www.io.com/media/informate.png" alt="" /></p>
-		<h3>Informate</h3>
+		<p><img class="colorScale" src="/media/informate.png" alt="" /></p>
+		<h3>InformaTE</h3>
 		</a>
 	</li>
 	
 	<li class="span2">
 		<a class="btn" href="#soon" rel="facebox">
-		<p><img class="greyScale" src="http://www.io.com/media/integrate.png" alt="" /></p>
-		<h3>Integrate</h3>
+		<p><img class="greyScale" src="/media/integrate.png" alt="" /></p>
+		<h3>IntegraTE</h3>
 		</a>
 	</li>
 	
 	<li class="span2">
 		<a class="btn" href="#soon" rel="facebox">
-		<p><img class="greyScale" src="http://www.io.com/media/asesorate2.png" alt="" /></p>
-		<h3>Asesorate</h3>
+		<p><img class="greyScale" src="/media/asesorate.png" alt="" /></p>
+		<h3>AsesoraTE</h3>
 		</a>
 	</li>	
 	
 	<li class="span2">
 		<a class="btn" href="#soon" rel="facebox">
-		<p><img class="greyScale" src="http://www.io.com/media/education.png" alt="" /></p>
-		<h3>Educate</h3>
+		<p><img class="greyScale" src="/media/educate.png" alt="" /></p>
+		<h3>EducaTE</h3>
 		</a>
 	</li>
 	
 	<li class="span2">
 		<a class="btn" href="#soon" rel="facebox">
-		<p><img class="greyScale" src="http://www.io.com/media/empleate.png" alt="" /></p>
-		<h3>Empleate</h3>
+		<p><img class="greyScale" src="/media/empleate.png" alt="" /></p>
+		<h3>EmpleaTE</h3>
 		</a>
 	</li>
 	
 	<li class="span2">
 		<a class="btn" href="#soon" rel="facebox">
-		<p><img class="greyScale" src="http://www.io.com/media/ioplus.png" alt="" /></p>
-		<h3>Oportunideas</h3>
+		<p><img class="greyScale" src="/media/oportunidades.png" alt="" /></p>
+		<h3>Oportunidades</h3>
 		</a>
 	</li>
 </ul>
@@ -76,23 +74,9 @@
 
 $(function() {
 	$('.greyScale').css({ opacity: 0.4 });
-	
-	$('a[rel*=facebox]').facebox() 
-	
-	//$('.greyScale').facebox('here');
-	
-  // fade in the grayscaled images to avoid visual jump
-  //$('.greyScale').hide().fadeIn(1000);
+	$('a[rel*=facebox]').facebox();
+	$('.flashObject').fitVids();
 });
-// use window.load to ensure images have been loaded
-/*$(window).load(function () {
-  $('.greyScale').greyScale({
-    // call the plugin with non-defult fadeTime (default: 400ms)
-    fadeTime: 500,
-    reverse: false
-  });
-});*/
-
 </script>
 
 <!-- INCLUDE doc.foot.htm -->

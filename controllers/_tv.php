@@ -84,6 +84,8 @@ class __tv extends xmd {
 				'CONTENT' => $row->object_content,
 				'VIDEO' => $preg[0],
 				'EMBED' => (!$i) ? $embed : '<a href="' . _link('tv', array('v' => $row->object_id)) . '" class="thumbnail"><img src="http://i2.ytimg.com/vi/' . $preg[0] . '/default.jpg" alt=""><br /><h5>' . $row->object_subject . '</h5></a>',
+				'EMBED2' => (!$i) ? $embed : '<img src="http://i2.ytimg.com/vi/' . $preg[0] . '/default.jpg" alt="" width="140" height="140" rel="' . _link('tv', array('v' => $row->object_id)) . '" />',
+				'EMBED3' => (!$i) ? $embed : '<a href="' . _link('tv', array('v' => $row->object_id)) . '"><img src="http://i2.ytimg.com/vi/' . $preg[0] . '/default.jpg" alt="" width="140" height="140"></a>',
 				'SPAN' => (!$i) ? 'span6' : 'span2',
 				'TIME' => $bio->format_date($row->object_time)
 			);

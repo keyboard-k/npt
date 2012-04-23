@@ -10,15 +10,60 @@
 	    {tv.FIRST_SUBJECT}
 	  </li>
 	</ul>
-
+	
 	<ul class="thumbnails">
 		<!-- BEGIN row -->
-		<li class="{row.SPAN} ttv">
-			{row.EMBED}
+		<!-- IF row.SPAN != 'span2' -->
+		<li class="span12 ttv">
+			<div class="centered">{row.EMBED}</div>
 		</li>
 		<!-- END row -->
+		<!-- ENDIF -->
 	</ul>
 	<!-- END tv -->
+	
+	<div class="image_carousel">
+		<div id="foo2">
+			<!-- BEGIN tv -->
+			<!-- BEGIN row -->
+			<!-- IF row.SPAN != 'span6' -->
+			{row.EMBED2}
+			<!-- ENDIF -->
+			<!-- END row -->
+			<!-- END tv -->
+		</div>
+		<div class="clearfix"></div>
+		<a class="prev" id="foo2_prev" href="#"><span>prev</span></a>
+		<a class="next" id="foo2_next" href="#"><span>next</span></a>
+	</div>
+	
+	<script type="text/javascript">
+	$(function() {
+		$("#foo2").carouFredSel({
+			circular: true,
+			infinite: true,
+			auto    : false,
+			height: 200,
+			scroll  : {
+				items   : "page"
+			},
+			prev    : {
+				button  : "#foo2_prev",
+				key     : "left"
+			},
+			next    : {
+				button  : "#foo2_next",
+				key     : "right"
+			},
+			pagination  : "#foo2_pag",
+			onCreate: function(items, sizes) {
+				$('#foo2 img').each(function() {
+					$(this).wrap("<a href='" + $(this).attr('rel') + "'/>");
+				});
+			}
+		});
+	});
+	</script>
 <!-- ELSEIF X1 == 'read' -->
 <div class="comments">
 

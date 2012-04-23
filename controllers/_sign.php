@@ -40,7 +40,7 @@ class __sign extends xmd implements i_sign {
 		parent::__construct();
 		
 		$this->auth(false);
-		$this->_m(_array_keys(w('fb up ed in out')));
+		$this->_m(_array_keys(w('fb up ed en in out')));
 	}
 	
 	public function home() {
@@ -174,6 +174,14 @@ class __sign extends xmd implements i_sign {
 		redirect(_link());
 	}
 	
+	public function en() {
+		return $this->method();
+	}
+	
+	protected function _en_home() {
+		return;
+	}
+	
 	public function up() {
 		return $this->method();
 	}
@@ -253,7 +261,8 @@ class __sign extends xmd implements i_sign {
 			);
 			sql_put('_bio_address', prefix('address', $sql_insert));
 			
-			_pre('OK', true);
+			echo 'OK';
+			exit;
 		}
 		
 		//$gi = geoip_open(XFS.XCOR . 'store/geoip.dat', GEOIP_STANDARD);
@@ -262,10 +271,10 @@ class __sign extends xmd implements i_sign {
 		if ($bio->v('ip') != '127.0.0.1') {
 			// GeoIP
 			if (!@function_exists('geoip_country_code_by_name')) {
-				require_once(XFS.XCOR . 'geoip.php');
+				//require_once(XFS.XCOR . 'geoip.php');
 			}
 			
-			$geoip_code = @geoip_country_code_by_name($bio->v('ip'));
+			//$geoip_code = @geoip_country_code_by_name($bio->v('ip'));
 		}
 		
 		for ($i = 1; $i < 32; $i++) {

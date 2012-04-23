@@ -7,7 +7,7 @@
 	
 	RewriteRule ^$ handle.php?module=home [L]
 	RewriteRule ^(ext)/([0-9a-z\_\-]+)\.(js|css)$ handle.php?module=ext&args=x1:$1.path:$2.ext:$3 [L]
-	RewriteRule ^(sign)(in|out|up|ed)/?$ handle.php?module=$1&args=x1:$2 [L]
+	RewriteRule ^(sign)(in|out|up|ed|en)/?$ handle.php?module=$1&args=x1:$2 [L]
 	RewriteRule ^(my)/(home|page|friends|messages|account)/?$ handle.php?module=bio&args=x1:$2 [L]
 	
 	RewriteCond %{REQUEST_FILENAME} !-f
