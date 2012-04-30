@@ -26,13 +26,11 @@ if (!defined('XFS')) exit;
 
 interface i_sign {
 	public function home();
-	//public function fb();		// signfb
-	//public function fbn();	// signfbn
-	public function in();		// signin
-	public function out();	// signout
-	public function up();		// signup
-	public function ed();		// signed
-	//public function el();		// signel
+	public function in();
+	public function out();
+	public function up();
+	public function ed();
+	public function en();
 }
 
 class __sign extends xmd implements i_sign {
@@ -40,19 +38,11 @@ class __sign extends xmd implements i_sign {
 		parent::__construct();
 		
 		$this->auth(false);
-		$this->_m(_array_keys(w('fb up ed en in out')));
+		$this->_m(_array_keys(w('up ed en in out')));
 	}
 	
 	public function home() {
 		_fatal();
-	}
-	
-	public function fb() {
-		return $this->method();
-	}
-	
-	protected function _fb_home() {
-		return;
 	}
 	
 	public function in() {
@@ -126,12 +116,10 @@ class __sign extends xmd implements i_sign {
 						sql_query(sql_filter($sql, $_bio->bio_id));
 					}
 					
-					//_pre($_bio->bio_id, true);
-					
 					$bio->session_create($_bio->bio_id);
 					redirect($v->page);
 				}
-				
+
 				if ($_bio->bio_fails == $core->v('account_failcount')) {
 					// TODO: Captcha system if failcount reached
 					// TODO: Notification about blocked account
@@ -143,7 +131,36 @@ class __sign extends xmd implements i_sign {
 				sql_query(sql_filter($sql, $_bio->bio_id));
 				
 				sleep(5);
-				$warning->set('login_fail');
+				
+				for ($i = 1; $i < 32; $i++) {
+					if ($i == 1) _style('birth_day');
+					
+					_style('birth_day.row', array(
+						'DAY' => $i)
+					);
+				}
+				
+				for ($i = 1; $i < 13; $i++) {
+					if ($i == 1) _style('birth_month');
+					
+					_style('birth_month.row', array(
+						'MONTH' => $i)
+					);
+				}
+				
+				for ($i = date('Y'); $i > 1900; $i--) {
+					if ($i == date('Y')) _style('birth_year');
+					
+					_style('birth_year.row', array(
+						'YEAR' => $i)
+					);
+				}
+				
+				_style('error', array(
+					'MESSAGE' => 'Los datos ingresados son inv&aacute;lidos, por favor intenta nuevamente.')
+				);
+				
+				return;
 			}
 		} else {
 			$v->register = true;
