@@ -97,7 +97,7 @@ body {
 	text-align: right;
 }
 .hero-unit {
-	height: 198px;
+	/*height: 198px;*/
 }
 .radial {
 	border-radius: 50px;
@@ -112,6 +112,9 @@ body {
 .clear, .clearfix {
 	clear: both;
 	display: block;
+}
+.full-width {
+	width: 93%;
 }
 
 .image_carousel {

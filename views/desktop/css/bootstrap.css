@@ -3977,16 +3977,16 @@ a.thumbnail:hover {
 .hero-unit h1 {
 	color: #fff;
   margin-bottom: 0;
-  font-size: 60px;
+  font-size: 50px;
   line-height: 1;
   color: inherit;
   letter-spacing: -1px;
 }
 .hero-unit p {
   font-size: 18px;
-  font-weight: 200;
   line-height: 27px;
   color: inherit;
+  text-align: justify;
 }
 .pull-right {
   float: right;
