@@ -1,20 +1,20 @@
-Ideas y Oportunidades
+Ideas and Opportunities
 ====================
 
-Ventajas del sistema
+Advantages of the system
 --------------------
 
-* El sistema se construye con tecnologia PHP 5.4, MySQL 5.5, HTML 5, CSS 3 
-* Modulos para cada sección del sitio
-* Cada modulo puede interactuar con la información de otros modulos
-* Cada seccion es administrable con editores Wysiwyg
-* Se permite la creación de secciones y páginas ilimitadas
-* Separación de la programacion y el diseño
-* Generación de documentos dinamicos en PDF
-* Generación de reportes en formato XLS
-* Sistema de protección de base de datos
-* Se pueden programar tareas que el sistema realiza automáticamente
-* Se puede cambiar completamente el diseño gráfico y colores dinamicamente
-* Envio de correos informativos a todos los usuarios registrados
-* Sistema para optimizar la velocidad de carga del sistema
-* Los archivos de programación no son visibles para evitar intrusos en el sistema
+ The system is built with technology PHP 5.4 , MySQL 5.5 , HTML 5, CSS 3
+    Modules for each section of the site
+    Each module can interact with information from other modules
+    Each section is manageable with Wysiwyg editors
+    Creating sections and allows unlimited pages
+    Separation of programming and design
+    Dynamic generation of PDF documents
+    Generating reports in XLS format
+    Protection system database
+    You can schedule tasks that the system performs automatically
+    You can completely change the graphic design and colors dynamically
+    Sending informative emails to all registered users
+    System to optimize the speed of system load
+    The setup files are not visible to prevent intrusion into the system
