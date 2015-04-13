@@ -11,7 +11,7 @@
 // XML_unserialize: takes raw XML as a parameter (a string)
 // and returns an equivalent PHP data structure
 //
-function & XML_unserialize($xml)
+function  XML_unserialize($xml)
 {
 	$xml_parser = new XML();
 	$data = $xml_parser->parse($xml);
@@ -23,7 +23,7 @@ function & XML_unserialize($xml)
 // XML_serialize: serializes any PHP data structure into XML
 // Takes one parameter: the data to serialize. Must be an array.
 //
-function & XML_serialize(&$data, $level = 0, $prior_key = NULL)
+function  XML_serialize($data, $level = 0, $prior_key = NULL)
 {
 	if (!$level)
 	{
@@ -70,7 +70,7 @@ function & XML_serialize(&$data, $level = 0, $prior_key = NULL)
 		
 		if (!$level)
 		{
-			$str = &ob_get_contents();
+			$str = ob_get_contents();
 			ob_end_clean();
 			return $str;
 		}
@@ -91,27 +91,27 @@ class XML
 	function XML()
 	{
  		$this->parser = xml_parser_create();
-		xml_parser_set_option(&$this->parser, XML_OPTION_CASE_FOLDING, false);
-		xml_parser_set_option(&$this->parser, XML_OPTION_TARGET_ENCODING, 'ISO-8859-1');
-		xml_set_object(&$this->parser, &$this);
-		xml_set_element_handler(&$this->parser, 'open','close');
-		xml_set_character_data_handler(&$this->parser, 'data');
+		xml_parser_set_option($this->parser, XML_OPTION_CASE_FOLDING, false);
+		xml_parser_set_option($this->parser, XML_OPTION_TARGET_ENCODING, 'ISO-8859-1');
+		xml_set_object($this->parser, $this);
+		xml_set_element_handler($this->parser, 'open','close');
+		xml_set_character_data_handler($this->parser, 'data');
 	}
 	
 	function destruct()
 	{
-		xml_parser_free(&$this->parser);
+		xml_parser_free($this->parser);
 	}
 	
 	function parse($data)
 	{
 		$this->document = array();
 		$this->stack = array();
-		$this->parent = &$this->document;
+		$this->parent = $this->document;
 		return xml_parse($this->parser, $data, true) ? $this->document : NULL;
 	}
 	
-	function open(&$parser, $tag, $attributes)
+	function open($parser, $tag, $attributes)
 	{
 		$this->data = ''; #stores temporary cdata
 		$this->last_opened_tag = $tag;
@@ -130,19 +130,19 @@ class XML
 				// This is the second instance of $tag that we've seen. shift around
 				if (array_key_exists("$tag attr",$this->parent))
 				{
-					$arr = array('0 attr'=>&$this->parent["$tag attr"], &$this->parent[$tag]);
+					$arr = array('0 attr'=>$this->parent["$tag attr"], $this->parent[$tag]);
 					unset($this->parent["$tag attr"]);
 				}
 				else
 				{
-					$arr = array(&$this->parent[$tag]);
+					$arr = array($this->parent[$tag]);
 				}
 				
-				$this->parent[$tag] = &$arr;
+				$this->parent[$tag] = $arr;
 				$key = 1;
 			}
 			
-			$this->parent = &$this->parent[$tag];
+			$this->parent = $this->parent[$tag];
 		}
 		else
 		{
@@ -153,11 +153,11 @@ class XML
 		{
 			$this->parent["$key attr"] = $attributes;
 		}
-		$this->parent  = &$this->parent[$key];
-		$this->stack[] = &$this->parent;
+		$this->parent  = $this->parent[$key];
+		$this->stack[] = $this->parent;
 	}
 	
-	function data(&$parser, $data)
+	function data($parser, $data)
 	{
 		// You don't need to store whitespace in between tags
 		if ($this->last_opened_tag != NULL)
@@ -166,7 +166,7 @@ class XML
 		}
 	}
 	
-	function close(&$parser, $tag)
+	function close($parser, $tag)
 	{
 		if ($this->last_opened_tag == $tag)
 		{
@@ -177,11 +177,11 @@ class XML
 		array_pop($this->stack);
 		if ($this->stack)
 		{
-			$this->parent = &$this->stack[count($this->stack) - 1];
+			$this->parent = $this->stack[count($this->stack) - 1];
 		}
 	}
 	
-	function numeric_items(&$array)
+	function numeric_items($array)
 	{
 		return is_array($array) ? count(array_filter(array_keys($array), 'is_numeric')) : 0;
 	}
